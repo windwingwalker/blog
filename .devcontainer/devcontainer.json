@@ -1,0 +1,11 @@
+{
+	"name": "Blog",
+	
+	"dockerComposeFile": [
+		"docker-compose.yml"
+	],
+
+	"service": "default",
+
+	"workspaceFolder": "/workspace",
+}

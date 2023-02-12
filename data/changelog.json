@@ -1,0 +1,84 @@
+[ 
+  {
+    "content": "Enhanced security and coding practices by removing sensitive data from source code.",
+    "date": "11 Feb 2023",
+    "version": "2.2.1"
+  },
+  {
+    "content": "Optimized code structure. Fixed page heading font problem. Added icons next to page heading. Optimized small devices UI/UX.",
+    "date": "30 Nov 2022",
+    "version": "2.2.0"
+  },
+  {
+    "content": "Fixed articles catalog page's pagination bugs when using filters again. Updated about page content.",
+    "date": "24 Nov 2022",
+    "version": "2.1.4"
+  },
+  {
+    "content": "Fixed articles catalog page's pagination bugs when using filters.",
+    "date": "26 Sep 2022",
+    "version": "2.1.3"
+  },
+  {
+    "content": "Optimized number display in financial dashboard.",
+    "date": "15 Sep 2022",
+    "version": "2.1.2"
+  },
+  {
+    "content": "Fixed list item font problems.",
+    "date": "9 Sep 2022",
+    "version": "2.1.1"
+  },
+  {
+    "content": "Redesigned home page, added masonry style of architecture diagrams. Showed page heading for non-laptop devices.",
+    "date": "6 Sep 2022",
+    "version": "2.1.0"
+  },
+  {
+    "content": "Fixed articles catalog page's pagination bugs.",
+    "date": "24 Aug 2022",
+    "version": "2.0.1"
+  },
+  {
+    "content": "Added Q&A page.",
+    "date": "7 Jul 2022",
+    "version": "2.0.0"
+  },
+  {
+    "content": "Added filtering by tag function and a button to remove filtering on article catalog page.",
+    "date": "21 May 2022",
+    "version": "1.4.0"
+  },
+  {
+    "content": "Showed article series on article catalog page.",
+    "date": "15 Apr 2022",
+    "version": "1.3.0"
+  },
+  {
+    "content": "Added tag function on article catalog page.",
+    "date": "10 Apr 2022",
+    "version": "1.2.0"
+  },
+  {
+    "content": "Added floating action button, removed drawer and appbar for small devices. Added security http response headers. Adapted responsive fonts size.",
+    "date": "28 Mar 2022",
+    "version": "1.1.0"
+  },
+  {
+    "content": "The blog debuted. Functions included: article catalog page, article page, changelog page, contributors page, about page, home page with system architecture diagram, login page, personal finance dashboard (login needed)", 
+    "date": "26 Mar 2022", 
+    "version": "1.0.0"
+  },
+  {
+    "content": "Started to write program.", 
+    "date": "Oct 2021"
+  },
+  {
+    "content": "Prepared neccessary technical knowledge.", 
+    "date": "2019 - 2021"
+  },
+  {
+    "content": "Generated basic bluebrint and idea.", 
+    "date": "2019"
+  }
+] 

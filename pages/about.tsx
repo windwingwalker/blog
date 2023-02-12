@@ -1,0 +1,51 @@
+import type { GetStaticProps, NextPage } from 'next'
+import { useEffect } from 'react';
+import React from 'react';
+import Profile from '../components/about/profile';
+import Masonry from '@mui/lab/Masonry';
+import { ABOUT_PATH } from '../shared/constant';
+import { useAppDispatch } from '../shared/hooks';
+import { updatePath } from '../shared/pathSlice';
+import { login, logout } from '../shared/userSlice';
+import { isGuest } from '../functions/auth';
+import { getJSONInJSObjectFromS3, isLargeScreen } from '../functions/common';
+import { Description, SkillSet, Cert, WorkExperience, AcademicBackground, Events } from '../components/about/root';
+import { PageHeadingBlock } from '../components/textblock';
+import { PageContainer } from '../components/root';
+
+const AboutPage: NextPage<any> = ({aboutData, timelineData}) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const validateRole = async () => {
+      dispatch(updatePath(ABOUT_PATH));
+      dispatch(await isGuest() ? logout() : login("admin") )
+    }
+    validateRole(); 
+  });
+
+  return (
+    <PageContainer name="About">
+      {!isLargeScreen() && <PageHeadingBlock navDisplayName="About" />}
+      <Masonry columns={{ xs: 1, sm: 2, md: 2, lg: 3, xl: 3 }} spacing={2} sx={{marginX: 0}}>
+        <Description data={aboutData["description"]}/>
+        <Profile data={timelineData}/>
+        <SkillSet data={aboutData["skillSet"]}/>
+        <Cert data={aboutData["certificates"]}/>
+        <WorkExperience data={aboutData["workExperience"]}/>
+        <AcademicBackground data={aboutData["academicBackground"]}/>
+        <Events data={aboutData["events"]}/>
+      </Masonry>
+    </PageContainer>
+  );
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const aboutData: Object = await getJSONInJSObjectFromS3("about.json");
+  const timelineData: Object = await getJSONInJSObjectFromS3("timeline.json");
+  
+  return {
+    props: {aboutData, timelineData},
+  }
+}
+
+export default AboutPage;

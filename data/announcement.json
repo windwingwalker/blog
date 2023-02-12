@@ -1,0 +1,10 @@
+{
+  "heading": "Time to Hack! Happy Hacking!",
+  "body": [
+    "This login text field is the only place accepting alphanumeric characters in my blog, which means this is one of the most vulnerable point of the whole system! So Scary!",
+    "According to <a href='https://en.wikipedia.org/wiki/Kerckhoffs%27s_principle'>Kerckhoffs's principle</a>: 'A cryptosystem should be secure even if everything about the system, except the key, is public knowledge' and also Shannon's maxim: 'the enemy will immediately gain full familiarity with the systems', open design is better than security through obscurity in order to prevent attacks.",
+    "I have already shared the system architecture on home page, as this blog is a composition of open source projects in <a href='https://github.com/windwingwalker'>my Github</a>. You are welcome to hack this blog, just treat this as a <a href='https://ctftime.org/ctf-wtf/'>Capture The Flag (CTF) competition</a>.",
+    "If you successfully hack my blog, you will see some private contents. You can use whatever methods you like to get the secret as long as you are following <a href='https://aws.amazon.com/security/penetration-testing/'>AWS Penetration Testing Guidance</a>. If you find any vulnerability, please let me know.",
+    "Let's explore and enhance hacking skills through endless real-world battles!"
+  ]
+}
