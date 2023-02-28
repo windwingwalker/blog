@@ -46,7 +46,7 @@ export const API_DOMAIN = `api.${DOMAIN_APEX}`
 export const ARTICLE_CATALOG_URL = `https://${API_DOMAIN}/article/article-catalog`;
 export const ARTICLE_URL = `https://${API_DOMAIN}/article/article`;
 export const ARTICLE_READER_COUNT_URL = `https://${API_DOMAIN}/article/article-reader-count`;
-export const ASSET_URL = `https://${API_DOMAIN}/finance/asset`;
+export const ASSET_URL = `https://${API_DOMAIN}/finance/balance`;
 
 /**
  * General
