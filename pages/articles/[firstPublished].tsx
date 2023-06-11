@@ -10,31 +10,10 @@ import { login, logout } from '../../shared/userSlice';
 import { isGuest } from '../../functions/auth';
 import { getDateFromUnix } from '../../functions/article';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
+import { ArticleHeadingBlock, ArticleParagraphBlock } from '../../components/textblock';
 
 interface BlockProps{
   text: string
-}
-
-const ArticleHeadingBlock: React.FC<BlockProps> = ({text}) =>{
-  return (
-    <>
-      <br />
-      <Typography variant="h4" component="div" gutterBottom sx={{fontWeight: 'medium'}}>
-        &sect; {text}
-      </Typography>
-    </>
-  );
-}
-
-const ArticleParagraphBlock: React.FC<BlockProps> = ({text}) =>{
-  return (
-    <>
-      <Typography variant="body1" component="div" gutterBottom sx={{ fontSize: 25 }}>
-        &para; {text}
-      </Typography>
-      <br />
-    </>
-  );
 }
 
 const TitleBlock: React.FC<BlockProps> = ({text}) => {
@@ -100,7 +79,7 @@ const ArticlePage: NextPage<Props> = ({article}) => {
           if (marker == "p")
             return <ArticleParagraphBlock key={index} text={block[marker]} />
           else
-            return <ArticleHeadingBlock key={index} text={block[marker]} />
+            return <ArticleHeadingBlock key={index} text={block[marker]} marker={marker}/>
         })}
       </Grid>
       <Grid item xs sm md lg xl>

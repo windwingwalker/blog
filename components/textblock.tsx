@@ -44,3 +44,31 @@ export const PageHeadingBlock: React.FC<any> = ({size="h4", navDisplayName}) => 
     </>
   );
 }
+
+export const ArticleHeadingBlock: React.FC<any> = ({text, marker}) =>{
+  var prefix = "";
+  var n = +marker.charAt(1);
+  for (var i = 0; i < n; i++){
+    prefix += "&sect;"
+  }
+
+  return (
+    <>
+      <br />
+      <Typography variant="h4" component="div" gutterBottom sx={{fontWeight: 'medium'}}>
+        {parse(prefix + " " + "\n" + text)}
+      </Typography>
+    </>
+  );
+}
+
+export const ArticleParagraphBlock: React.FC<any> = ({text}) =>{
+  return (
+    <>
+      <Typography variant="body1" component="div" gutterBottom sx={{ fontSize: 25 }}>
+        &para; {text}
+      </Typography>
+      <br />
+    </>
+  );
+}
