@@ -1,5 +1,10 @@
 [ 
   {
+    "content": "Changed article tags storage.",
+    "date": "12 Jun 2023",
+    "version": "2.2.2"
+  },
+  {
     "content": "Enhanced security and coding practices by removing sensitive data from source code.",
     "date": "11 Feb 2023",
     "version": "2.2.1"
