@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Grid, Stack, Box, Button } from '@mui/material';
 import { TagList } from '../../components/articles/tag-list';
 import History from '../../components/articles/history';
-import { ArticleCatalog, ArticleMetadata } from '../../models/article';
+import { ArticleCatalog, ArticleMetadata, ArticleTag } from '../../models/article';
 import { ArticleCardList } from '../../components/articles/articleCard';
 import { GetStaticProps } from 'next';
 import { ARTICLES_PATH, ARTICLE_CATALOG_URL } from '../../shared/constant';
@@ -19,14 +19,16 @@ import { filterArticlesByTags, getArticlesOfCurrentPage } from '../../functions/
 import MyPagination from '../../components/articles/pagination';
 import { PageHeadingBlock } from '../../components/textblock';
 import { PageContainer } from '../../components/root';
+import { getJSONInJSObjectFromS3 } from '../../functions/common';
 
 const ARTICLE_AMOUNT_PER_PAGE = 7;
 
 interface Props{
-  articleCatalog: ArticleCatalog
+  articleCatalog: ArticleCatalog,
+  tags: ArticleTag[]
 }
 
-const ArticleListPage: NextPage<Props> = ({articleCatalog}) => {
+const ArticleListPage: NextPage<Props> = ({articleCatalog, tags}) => {
   const dispatch = useAppDispatch();
   const tagSelected: string[] = useAppSelector((state: any) => state.article.tags)
   const seriesSelected: string = useAppSelector((state: any) => state.article.series)
@@ -68,14 +70,14 @@ const ArticleListPage: NextPage<Props> = ({articleCatalog}) => {
         </Grid> */}
         
         <Grid item xs={12} sm={8} md={8} lg={8} xl={8}>
-          <ArticleCardList value={articlesOfCurrentPage} />
+          <ArticleCardList value={articlesOfCurrentPage} tags={tags}/>
           <br />
           <MyPagination maxPage={maxPageNumber} currentPage={currentPage} />
         </Grid>
 
         <Grid item xs={0} sm={4} md={4} lg={4} xl={4}>
           <Stack spacing={2}>
-            <TagList />
+            <TagList tags={tags}/>
             <Button variant="outlined" color='jadeite' startIcon={<AutorenewOutlinedIcon />} onClick={() => dispatch(resetAllFilter())}>Reset all Filter</Button>
             {/* <History /> */}
           </Stack>
@@ -86,12 +88,15 @@ const ArticleListPage: NextPage<Props> = ({articleCatalog}) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await axios.get(ARTICLE_CATALOG_URL);
-  const articleCatalog: ArticleCatalog = res["data"];
+  const articleCatalogResponse = await axios.get(ARTICLE_CATALOG_URL);
+  const articleCatalog: ArticleCatalog = articleCatalogResponse["data"];
+
+  const tags: ArticleTag[] = await getJSONInJSObjectFromS3("article/tags.json");
   
   return {
     props: {
-      articleCatalog
+      articleCatalog,
+      tags
     },
   }
 }

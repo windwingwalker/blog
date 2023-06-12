@@ -4,7 +4,7 @@ import { fromEnv } from "@aws-sdk/credential-providers";
 import { useMediaQuery } from "react-responsive";
 import { LARGE_SCREEN_MIN_WIDTH, SMALL_SCREEN_MAX_WIDTH } from '../shared/constant';
 
-export const getParameterFromSSM = async (ssmPath: string): Promise<string> => {
+const getParameterFromSSM = async (ssmPath: string): Promise<string> => {
   const client: SSMClient = new SSMClient({ region: "us-east-1", credentials: {accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID!, secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY!}});
   const params: GetParameterCommandInput = {Name: ssmPath};
   const command: GetParameterCommand = new GetParameterCommand(params);
@@ -16,7 +16,7 @@ export const getParameterFromSSM = async (ssmPath: string): Promise<string> => {
   return response["Parameter"]["Value"]!;
 }
 
-export const getS3ObjectFromS3 = async (bucketName: string, objectKey: string): Promise<any | Blob | ReadableStream> => {
+const getS3ObjectFromS3 = async (bucketName: string, objectKey: string): Promise<any | Blob | ReadableStream> => {
   const client: S3Client = new S3Client({ region: "us-east-1", credentials: {accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID!, secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY!}});
   const params: GetObjectCommandInput = {Bucket: bucketName, Key: objectKey};
   const command: GetObjectCommand = new GetObjectCommand(params);
@@ -26,6 +26,12 @@ export const getS3ObjectFromS3 = async (bucketName: string, objectKey: string): 
   return response["Body"];
 }
 
+const getJavaScriptObjectFromS3JSON = async (s3Object: any | Blob | ReadableStream): Promise<any | object | object[]> => {
+  const dataInString = await getStringFromStream(s3Object);
+  const dataInObject: any | object | object[] = await JSON.parse(dataInString);
+  return dataInObject;
+}
+
 export const getJSONInJSObjectFromS3 = async (fileName: string): Promise<any> => {
   const bucketName: string = await getParameterFromSSM("/blog/s3-bucket-name");
   const dataInStream = await getS3ObjectFromS3(bucketName, fileName);
@@ -33,13 +39,7 @@ export const getJSONInJSObjectFromS3 = async (fileName: string): Promise<any> =>
   return data;
 }
 
-export const getJavaScriptObjectFromS3JSON = async (s3Object: any | Blob | ReadableStream): Promise<any | object | object[]> => {
-  const dataInString = await getStringFromStream(s3Object);
-  const dataInObject: any | object | object[] = await JSON.parse(dataInString);
-  return dataInObject;
-}
-
-export const getStringFromStream = async (stream: any): Promise<string> => {
+const getStringFromStream = async (stream: any): Promise<string> => {
   const chunks: any = [];
   return new Promise((resolve, reject) => {
     stream.on('data', (chunk: any) => chunks.push(Buffer.from(chunk)));

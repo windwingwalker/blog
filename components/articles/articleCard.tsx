@@ -5,11 +5,11 @@ import { Tag } from './tag-list'
 import { HeadingBlock } from '../textblock';
 import { getDateFromUnix } from '../../functions/article';
 import { isSmallScreen } from '../../functions/common';
-import tags from '../../data/tags.json'
 import { Stack, Box, Typography, Card, CardActionArea, CardContent } from '@mui/material';
 
 interface Props {
-  articleMetadata: ArticleMetadata
+  articleMetadata: ArticleMetadata,
+  tags: ArticleTag[]
 }
 
 // const FeaturedArticleList: React.FC = () => {
@@ -23,17 +23,17 @@ interface Props {
 //     );
 // }
 
-export const ArticleCardList: React.FC<any> = ({value}: any) => {
+export const ArticleCardList: React.FC<any> = ({value, tags}: any) => {
   return (
     <Stack spacing={2} >
       {value.map((articleMetadata: ArticleMetadata, index: number) => 
-        <ArticleCard key={index} articleMetadata={articleMetadata} />      
+        <ArticleCard key={index} articleMetadata={articleMetadata} tags={tags}/>      
       )}
     </Stack>
   );
 }
 
-export const FeaturedArticleCard: React.FC<Props> = ({articleMetadata}) => {
+const FeaturedArticleCard: React.FC<Props> = ({articleMetadata}) => {
   return (
     <Card sx={{ minWidth: 350}}>
       <CardContent>
@@ -57,7 +57,7 @@ export const FeaturedArticleCard: React.FC<Props> = ({articleMetadata}) => {
   );
 }
 
-export const ArticleCard: React.FC<Props> = ({articleMetadata}) => {
+const ArticleCard: React.FC<Props> = ({articleMetadata, tags}) => {
 
   const paddingX = isSmallScreen() ? 1 : 3;
   const paddingTop = isSmallScreen() ? 2 : 3;

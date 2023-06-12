@@ -65,26 +65,25 @@ const ArticlePage: NextPage<Props> = ({article}) => {
   
   return (
     <Box padding={2}>
-    <Grid container spacing={2} columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12}}>
-      <Grid item xs sm md lg xl>
-      </Grid>
-      <Grid item sx={{maxWidth: 700}} >
-        <TitleBlock text={article["title"]} />
-        <SubtitleBlock text={article["subtitle"]} />
-        <VersionBlock text={`First Published: ${getDateFromUnix(article["firstPublished"])} | Last Modified: ${getDateFromUnix(article["lastModified"])} | Edition: ${article["edition"]}`} />
-        <hr />
-        {article["body"].map((block, index) => {
-          var markers = Object.keys(block);
-          var marker = markers[0];
-          if (marker == "p")
-            return <ArticleParagraphBlock key={index} text={block[marker]} />
-          else
-            return <ArticleHeadingBlock key={index} text={block[marker]} marker={marker}/>
-        })}
-      </Grid>
-      <Grid item xs sm md lg xl>
-      </Grid>
-
+      <Grid container spacing={2} columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12}}>
+        <Grid item xs sm md lg xl>
+        </Grid>
+        <Grid item sx={{maxWidth: 700}} >
+          <TitleBlock text={article["title"]} />
+          <SubtitleBlock text={article["subtitle"]} />
+          <VersionBlock text={`First Published: ${getDateFromUnix(article["firstPublished"])} | Last Modified: ${getDateFromUnix(article["lastModified"])} | Edition: ${article["edition"]}`} />
+          <hr />
+          {article["body"].map((block, index) => {
+            var markers = Object.keys(block);
+            var marker = markers[0];
+            if (marker == "p")
+              return <ArticleParagraphBlock key={index} text={block[marker]} />
+            else
+              return <ArticleHeadingBlock key={index} text={block[marker]} marker={marker}/>
+          })}
+        </Grid>
+        <Grid item xs sm md lg xl>
+        </Grid>
       </Grid>
     </Box>
   );

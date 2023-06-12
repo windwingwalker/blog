@@ -40,11 +40,14 @@ const AboutPage: NextPage<any> = ({aboutData, timelineData}) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const aboutData: Object = await getJSONInJSObjectFromS3("about.json");
-  const timelineData: Object = await getJSONInJSObjectFromS3("timeline.json");
+  const aboutData: Object = await getJSONInJSObjectFromS3("blog/about.json");
+  const timelineData: Object = await getJSONInJSObjectFromS3("blog/timeline.json");
   
   return {
-    props: {aboutData, timelineData},
+    props: {
+      aboutData, 
+      timelineData
+    },
   }
 }
 

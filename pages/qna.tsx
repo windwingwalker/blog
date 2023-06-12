@@ -31,7 +31,7 @@ const QnAPage: NextPage<any> = ({data}) =>{
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data: Object[] = await getJSONInJSObjectFromS3("qna.json");
+  const data: Object[] = await getJSONInJSObjectFromS3("blog/qna.json");
   
   return {
     props: {data},

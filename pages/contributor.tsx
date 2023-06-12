@@ -51,7 +51,7 @@ const ContributorPage: NextPage<any> = ({data}) =>{
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data: Object[] = await getJSONInJSObjectFromS3("contributor.json");
+  const data: Object[] = await getJSONInJSObjectFromS3("blog/contributor.json");
   
   return {
     props: {data},

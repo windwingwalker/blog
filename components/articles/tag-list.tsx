@@ -3,7 +3,6 @@ import { ArticleTag } from '../../models/article';
 import { Box, Chip } from '@mui/material';
 import { addTagFilter, setCurrentPage } from '../../shared/articleSlice';
 import { useAppDispatch } from '../../shared/hooks';
-import data from '../../data/tags.json'
 
 export const Tag: React.FC<{articleTag: ArticleTag}> = ({articleTag}) => {
   const dispatch = useAppDispatch();
@@ -25,7 +24,7 @@ export const Tag: React.FC<{articleTag: ArticleTag}> = ({articleTag}) => {
   );
 }
 
-export const TagList: React.FC<any> = () => {
+export const TagList: React.FC<any> = ({tags}) => {
     return (
       <>
       <Paper>
@@ -41,8 +40,8 @@ export const TagList: React.FC<any> = () => {
           }}
           component="ul"
         >
-          {data.map((data: ArticleTag, index: number) => (
-              <Tag key={index} articleTag={data} />
+          {tags.map((tag: ArticleTag, index: number) => (
+              <Tag key={index} articleTag={tag} />
           )
           )}
         </Paper>
