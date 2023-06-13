@@ -72,3 +72,40 @@ export const ArticleParagraphBlock: React.FC<any> = ({text}) =>{
     </>
   );
 }
+
+export const ArticlePoetryBlock: React.FC<any> = ({sentenceList}) => {
+  return (
+    sentenceList.map((sentence: any) => 
+      <Typography variant='body1' component="div" align="center" sx={{ fontSize: 20 }} >
+        {sentence}
+      </Typography>
+    )
+  );
+}
+
+export const ArticleTitleBlock: React.FC<any> = ({text}) => {
+  return (
+    <Typography variant="h3" component="div" align="center" gutterBottom sx={{fontWeight: 'bold'}}> 
+      {text}
+    </Typography>
+  );
+}
+
+export const ArticleSubtitleBlock: React.FC<any> = ({text}) => {
+  return (
+    <Typography variant="h4" component="div" align="center" gutterBottom sx={{fontWeight: 'medium'}}>
+      {text}
+    </Typography>
+  );
+}
+
+export const ArticleVersionBlock: React.FC<any> = ({text}) => {
+  return (
+    <>
+      <Typography variant="overline" component="div" align="center" gutterBottom color="text.secondary" sx={{fontWeight: 'medium'}}>
+        {text}
+      </Typography>
+      <br />
+    </>
+  );
+}

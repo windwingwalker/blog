@@ -10,38 +10,7 @@ import { login, logout } from '../../shared/userSlice';
 import { isGuest } from '../../functions/auth';
 import { getDateFromUnix } from '../../functions/article';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
-import { ArticleHeadingBlock, ArticleParagraphBlock } from '../../components/textblock';
-
-interface BlockProps{
-  text: string
-}
-
-const TitleBlock: React.FC<BlockProps> = ({text}) => {
-  return (
-    <Typography variant="h3" component="div" align="center" gutterBottom sx={{fontWeight: 'bold'}}> 
-      {text}
-    </Typography>
-  );
-}
-
-const SubtitleBlock: React.FC<BlockProps> = ({text}) => {
-  return (
-    <Typography variant="h4" component="div" align="center" gutterBottom sx={{fontWeight: 'medium'}}>
-      {text}
-    </Typography>
-  );
-}
-
-const VersionBlock: React.FC<BlockProps> = ({text}) => {
-  return (
-    <>
-      <Typography variant="overline" component="div" align="center" gutterBottom color="text.secondary" sx={{fontWeight: 'medium'}}>
-        {text}
-      </Typography>
-      <br />
-    </>
-  );
-}
+import { ArticleHeadingBlock, ArticleParagraphBlock, ArticlePoetryBlock, ArticleSubtitleBlock, ArticleTitleBlock, ArticleVersionBlock } from '../../components/textblock';
 
 interface Props{
   article: Article
@@ -69,17 +38,19 @@ const ArticlePage: NextPage<Props> = ({article}) => {
         <Grid item xs sm md lg xl>
         </Grid>
         <Grid item sx={{maxWidth: 700}} >
-          <TitleBlock text={article["title"]} />
-          <SubtitleBlock text={article["subtitle"]} />
-          <VersionBlock text={`First Published: ${getDateFromUnix(article["firstPublished"])} | Last Modified: ${getDateFromUnix(article["lastModified"])} | Edition: ${article["edition"]}`} />
+          <ArticleTitleBlock text={article["title"]} />
+          <ArticleSubtitleBlock text={article["subtitle"]} />
+          <ArticleVersionBlock text={`First Published: ${getDateFromUnix(article["firstPublished"])} | Last Modified: ${getDateFromUnix(article["lastModified"])} | Edition: ${article["edition"]}`} />
           <hr />
           {article["body"].map((block, index) => {
             var markers = Object.keys(block);
             var marker = markers[0];
             if (marker == "p")
               return <ArticleParagraphBlock key={index} text={block[marker]} />
+            else if (marker == "poetry")
+              return <ArticlePoetryBlock key={index} sentenceList={block[marker]} />
             else
-              return <ArticleHeadingBlock key={index} text={block[marker]} marker={marker}/>
+              return <ArticleHeadingBlock key={index} text={block[marker]} marker={marker} />
           })}
         </Grid>
         <Grid item xs sm md lg xl>
