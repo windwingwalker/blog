@@ -15,13 +15,13 @@ import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 import { isGuest } from '../../functions/auth';
 import { useRouter } from "next/router";
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
-import { filterArticlesByTags, getArticlesOfCurrentPage } from '../../functions/article';
+import { filterArticlesByTags, getArticlesOfCurrentPage, getMaxPageNumber } from '../../functions/article';
 import MyPagination from '../../components/articles/pagination';
 import { PageHeadingBlock } from '../../components/textblock';
 import { PageContainer } from '../../components/root';
 import { getJSONInJSObjectFromS3 } from '../../functions/common';
 
-const ARTICLE_AMOUNT_PER_PAGE = 7;
+const ARTICLE_AMOUNT_PER_PAGE : number = 7;
 
 interface Props{
   articleCatalog: ArticleCatalog,
@@ -53,7 +53,7 @@ const ArticleListPage: NextPage<Props> = ({articleCatalog, tags}) => {
 
     var targetedArticleMetadata: ArticleMetadata[] = articleCatalog["body"]
     targetedArticleMetadata = filterArticlesByTags(targetedArticleMetadata, tagSelected)
-    setMaxPageNumber(Math.floor(targetedArticleMetadata.length / (ARTICLE_AMOUNT_PER_PAGE + 1)) + 1)
+    setMaxPageNumber(getMaxPageNumber(targetedArticleMetadata.length, ARTICLE_AMOUNT_PER_PAGE));
     targetedArticleMetadata = getArticlesOfCurrentPage(targetedArticleMetadata, currentPage, ARTICLE_AMOUNT_PER_PAGE)
     setArticlesOfCurrentPage(targetedArticleMetadata)
     validateRole();

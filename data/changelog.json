@@ -1,5 +1,15 @@
 [ 
   {
+    "content": "Fixed Article Catalog page pagination calculation bug.",
+    "date": "17 Jun 2023",
+    "version": "2.3.1"
+  },
+  {
+    "content": "Added poetry display block for Article page.",
+    "date": "12 Jun 2023",
+    "version": "2.3.0"
+  },
+  {
     "content": "Changed article tags storage.",
     "date": "12 Jun 2023",
     "version": "2.2.2"

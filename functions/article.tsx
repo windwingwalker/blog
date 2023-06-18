@@ -34,3 +34,9 @@ export const getArticlesOfCurrentPage = (articleMetadataList: ArticleMetadata[],
   }
   return res;
 }
+
+export const getMaxPageNumber = (totalArticleAmount: number, articleAmountPerPage: number) => {
+  var res = Math.floor(totalArticleAmount / articleAmountPerPage);
+
+  return totalArticleAmount % articleAmountPerPage == 0 ? res : res + 1;
+}
