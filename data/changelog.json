@@ -1,5 +1,10 @@
 [ 
   {
+    "content": "Upgrade node version to 18.x",
+    "date": "29 Aug 2023",
+    "version": "2.3.2"
+  },
+  {
     "content": "Fixed Article Catalog page pagination calculation bug.",
     "date": "17 Jun 2023",
     "version": "2.3.1"
