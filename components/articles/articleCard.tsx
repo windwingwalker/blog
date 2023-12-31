@@ -69,7 +69,7 @@ const ArticleCard: React.FC<Props> = ({articleMetadata, tags}) => {
         <CardActionArea >
           <CardContent sx={{paddingX: paddingX, paddingTop: paddingTop, paddingBottom: paddingBottom}}>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              First Published: {getDateFromUnix(articleMetadata["firstPublished"])} | Last Modified: {getDateFromUnix(articleMetadata["lastModified"])} | Edition: {articleMetadata["edition"]}
+              First Published: {getDateFromUnix(articleMetadata["firstPublished"], -5)} | Last Modified: {getDateFromUnix(articleMetadata["lastModified"], -5)} | Edition: {articleMetadata["edition"]}
             </Typography>
             {
               articleMetadata["series"] != null  && 

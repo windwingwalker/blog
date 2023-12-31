@@ -19,11 +19,21 @@ export const filterArticlesByTags = (articleMetadataList: ArticleMetadata[], tag
   return articleMetadataList;
 }
 
-export const getDateFromUnix = (unixTime: number) =>{
-  var res = new Date(unixTime);
-  const value = res.toDateString().split(' ')
-  return value[2] + " " + value[1] + " " + value[3]
-}
+export const getDateFromUnix = (unixTime: number, timezoneOffset: number) => {
+  // Create a date object using the Unix timestamp
+  var date = new Date(unixTime);
+
+  // Convert the date object to UTC by adding the timezone offset of the local timezone
+  var utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+
+  // Adjust the date by the desired timezone offset (in hours)
+  // For example, for EST (UTC-5) you can pass -5 as timezoneOffset
+  var targetDate = new Date(utcDate.getTime() + timezoneOffset * 3600000);
+
+  // Format the date as you like
+  const value = targetDate.toDateString().split(' ');
+  return value[2] + " " + value[1] + " " + value[3];
+};
 
 export const getArticlesOfCurrentPage = (articleMetadataList: ArticleMetadata[], currentPage: number, articleAmountPerPage: number): ArticleMetadata[] => {
   var res: ArticleMetadata[] = []; 

@@ -40,7 +40,7 @@ const ArticlePage: NextPage<Props> = ({article}) => {
         <Grid item sx={{maxWidth: 700}} >
           <ArticleTitleBlock text={article["title"]} />
           <ArticleSubtitleBlock text={article["subtitle"]} />
-          <ArticleVersionBlock text={`First Published: ${getDateFromUnix(article["firstPublished"])} | Last Modified: ${getDateFromUnix(article["lastModified"])} | Edition: ${article["edition"]}`} />
+          <ArticleVersionBlock text={`First Published: ${getDateFromUnix(article["firstPublished"], -5)} | Last Modified: ${getDateFromUnix(article["lastModified"], -5)} | Edition: ${article["edition"]}`} />
           <hr />
           {article["body"].map((block, index) => {
             var markers = Object.keys(block);
