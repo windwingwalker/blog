@@ -4,7 +4,7 @@ export interface ArticleMetadata{
   firstPublished: number;
   lastModified: number;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   type: string;
   edition: number;
   tags?: string[];
@@ -15,7 +15,7 @@ export interface Article{
   firstPublished: number;
   lastModified: number;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   type: string;
   edition: number;
   tags?: string[];

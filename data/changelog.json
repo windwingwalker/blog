@@ -1,11 +1,16 @@
 [ 
   {
-    "content": "Force date display from user's locale to universally identical time zone (UTC -5)",
+    "content": "Improved UI on articles which is missing series / tags / subtitle",
+    "date": "1 Feb 2024",
+    "version": "2.3.4"
+  },
+  {
+    "content": "Forced date display from user's locale to universally identical time zone (UTC -5)",
     "date": "31 Dec 2023",
     "version": "2.3.3"
   },
   {
-    "content": "Upgrade node version to 18.x",
+    "content": "Upgraded node version to 18.x",
     "date": "29 Aug 2023",
     "version": "2.3.2"
   },
