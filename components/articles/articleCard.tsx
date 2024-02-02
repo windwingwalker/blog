@@ -72,13 +72,16 @@ const ArticleCard: React.FC<Props> = ({articleMetadata, tags}) => {
               First Published: {getDateFromUnix(articleMetadata["firstPublished"], -5)} | Last Modified: {getDateFromUnix(articleMetadata["lastModified"], -5)} | Edition: {articleMetadata["edition"]}
             </Typography>
             {
-              articleMetadata["series"] != null  && 
+              (articleMetadata["series"] != null && articleMetadata["series"] != "-")  && 
               <HeadingBlock size="h6" text={`《${articleMetadata["series"]}》系列`} />
             }
             <HeadingBlock size="h4" text={`【${articleMetadata["type"]}】${articleMetadata["title"]}`} />
-            <Typography variant="h5" sx={{ mb: 1.5 }} color="text.secondary">
-              {articleMetadata["subtitle"]}
-            </Typography>
+            {
+              (articleMetadata["subtitle"] != null && articleMetadata["subtitle"] != "-")  && 
+              <Typography variant="h5" sx={{ mb: 1.5 }} color="text.secondary">
+                {articleMetadata["subtitle"]}
+              </Typography>
+            }
             {
               articleMetadata["tags"] != null && articleMetadata["tags"].map((tagName: string, index) => {
                 var foo = tags.filter((data: ArticleTag) => data["id"] == tagName)[0]

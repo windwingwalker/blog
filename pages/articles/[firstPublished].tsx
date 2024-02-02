@@ -39,7 +39,11 @@ const ArticlePage: NextPage<Props> = ({article}) => {
         </Grid>
         <Grid item sx={{maxWidth: 700}} >
           <ArticleTitleBlock text={article["title"]} />
-          <ArticleSubtitleBlock text={article["subtitle"]} />
+          {
+            (article["subtitle"] != null && article["subtitle"] != "-") && 
+            <ArticleSubtitleBlock text={article["subtitle"]} />
+          }
+          
           <ArticleVersionBlock text={`First Published: ${getDateFromUnix(article["firstPublished"], -5)} | Last Modified: ${getDateFromUnix(article["lastModified"], -5)} | Edition: ${article["edition"]}`} />
           <hr />
           {article["body"].map((block, index) => {
