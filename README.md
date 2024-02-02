@@ -46,3 +46,13 @@ Also, the AWS credentials ENV var key should be `REACT_APP_AWS_ACCESS_KEY_ID` in
 - `functions/`: For storing function / calculation / logic that are **not UI related**. Each function should be able to perform unit test.
 - `components/`: For storing UI components, no calculation involved.
 - `data/`: For storing some public data / wordings that is seldomly changed.
+
+## Reference
+
+### Next.js
+
+- [Next.js + 各種套件組合 :: 2018 iT 邦幫忙鐵人賽](https://ithelp.ithome.com.tw/users/20103438/ironman/1308)
+- https://stackoverflow.com/questions/65078245/how-to-make-next-js-getstaticprops-work-with-typescript
+- https://github.com/vercel/next.js/blob/canary/examples/with-typescript/pages/users/%5Bid%5D.tsx
+- [How to add an image in next.js?](https://medium.com/nextjs/how-to-add-an-image-in-next-js-5c1065450e3a)
+- [Protect your API routes in Next.js with Middleware](https://blog.tericcabrel.com/protect-your-api-routes-in-next-js-with-middleware/)
