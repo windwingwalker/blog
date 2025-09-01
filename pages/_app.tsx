@@ -71,7 +71,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             {mounted && isLargeScreen && (
               <MyDrawer open={open} toggleDrawer={toggleDrawer} />
             )}
-            <Main component="main">
+            <Main>
               <DrawerHeader />
               <Component {...pageProps} />
               {isMiddleScreen && <MySpeedDial />}
