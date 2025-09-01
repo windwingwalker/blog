@@ -25,16 +25,16 @@ export const PageContainer: React.FC<any> = (props: any) => {
 export const Center: React.FC = (props: any) => {
   return (
     <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ minHeight: `calc(100% - 64px)` }}
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: `calc(100% - 64px)` }}
       >
-      <Grid item xs={3}>
+      <Box sx={{ width: { xs: '25%' } }}>
         {props["children"]}
-      </Grid>
+      </Box>
     </Grid>
   );
 }
