@@ -1,5 +1,5 @@
 import parse from 'html-react-parser'
-import { Grid, Link, Typography } from '@mui/material';
+import { Grid, Link, Typography, Box } from '@mui/material';
 import { PAGE_NAV_MAPPING } from '../shared/constant';
 
 export const ListBlock: React.FC<any> = ({list}: any) => 
@@ -34,12 +34,12 @@ export const PageHeadingBlock: React.FC<any> = ({size="h4", navDisplayName}) => 
   return (
     <>
     <Grid container direction="row" alignItems="center" paddingX="8px">
-      <Grid item>
+      <Box>
         {res["icon"]} &nbsp;
-      </Grid>
-      <Grid item>
+      </Box>
+      <Box>
         <HeadingBlock size={size} text={res["pageHeadingDisplayName"]} />
-      </Grid>
+      </Box>
     </Grid>
     </>
   );
