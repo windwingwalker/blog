@@ -10,7 +10,7 @@ import { isGuest } from '../functions/auth';
 import  Form from '../components/login/form'
 import LoginAnnouncement from '../components/login/announcement';
 import { Center } from '../components/root';
-import { isSmallScreen } from '../functions/common';
+import { useSmallScreen } from '../functions/common';
 
 const LoginPage: NextPage<any> = () => {
   const MyBox = styled(Box)(({ theme }) => ({
@@ -28,7 +28,8 @@ const LoginPage: NextPage<any> = () => {
     validateRole();
   });
 
-  const paddingX = isSmallScreen() ? 1 : 5;
+  const isSmallScreen = useSmallScreen();
+  const paddingX = isSmallScreen ? 1 : 5;
 
   return (
     <MyBox paddingX={paddingX}>

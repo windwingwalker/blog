@@ -4,7 +4,7 @@ import { ARTICLES_PATH } from '../../shared/constant';
 import { Tag } from './tag-list'
 import { HeadingBlock } from '../textblock';
 import { getDateFromUnix } from '../../functions/article';
-import { isSmallScreen } from '../../functions/common';
+import { useSmallScreen } from '../../functions/common';
 import { Stack, Box, Typography, Card, CardActionArea, CardContent } from '@mui/material';
 
 interface Props {
@@ -58,10 +58,11 @@ const FeaturedArticleCard: React.FC<Props> = ({articleMetadata}) => {
 }
 
 const ArticleCard: React.FC<Props> = ({articleMetadata, tags}) => {
+  const isSmallScreen = useSmallScreen();
 
-  const paddingX = isSmallScreen() ? 1 : 3;
-  const paddingTop = isSmallScreen() ? 2 : 3;
-  const paddingBottom = isSmallScreen() ? 1 : 2;
+  const paddingX = isSmallScreen ? 1 : 3;
+  const paddingTop = isSmallScreen ? 2 : 3;
+  const paddingBottom = isSmallScreen ? 1 : 2;
 
   return (
     <Link href={`${ARTICLES_PATH}/${articleMetadata["firstPublished"]}`}>

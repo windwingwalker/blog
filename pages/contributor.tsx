@@ -8,7 +8,7 @@ import { login, logout } from '../shared/userSlice';
 import { isGuest } from '../functions/auth';
 import { Center, PageContainer } from '../components/root';
 import { HeadingBlock, ListBlock, PageHeadingBlock } from '../components/textblock';
-import { getJSONInJSObjectFromS3, isLargeScreen } from '../functions/common';
+import { getJSONInJSObjectFromS3, useLargeScreen } from '../functions/common';
 
 const ContributorPage: NextPage<any> = ({data}) =>{
   const dispatch = useAppDispatch();
@@ -23,11 +23,12 @@ const ContributorPage: NextPage<any> = ({data}) =>{
   const videoRatio = 500 / 294
   const videoWidth = 600
   const videoHeight = videoWidth / videoRatio
+  const isLargeScreen = useLargeScreen();
 
   return (
     <PageContainer name="Contributors">
       <Grid container>
-        {!isLargeScreen() && <PageHeadingBlock navDisplayName="Contributors" />}
+        {!isLargeScreen && <PageHeadingBlock navDisplayName="Contributors" />}
         <Grid item xs={12} sm={12} md={6} lg={6} xl={6}> 
           <Center>
             <HeadingBlock size="h5" text="Thanks the following people contribute to this site" />

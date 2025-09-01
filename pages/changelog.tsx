@@ -7,7 +7,7 @@ import { login, logout } from '../shared/userSlice';
 import { isGuest } from '../functions/auth';
 import { default as MuiTimeline} from '@mui/lab/Timeline';
 import { PageHeadingBlock } from '../components/textblock';
-import { isLargeScreen } from '../functions/common';
+import { useLargeScreen } from '../functions/common';
 import { SingleLog } from '../components/changelog/root';
 import { PageContainer } from '../components/root';
 import data from '../data/changelog.json'
@@ -22,9 +22,11 @@ const ChangelogPage: NextPage<any> = () =>{
     validateRole(); 
   });
 
+  const isLargeScreen = useLargeScreen();
+
   return (
     <PageContainer name="Changelog" >
-      {!isLargeScreen() && <PageHeadingBlock navDisplayName="Changelog" />}
+      {!isLargeScreen && <PageHeadingBlock navDisplayName="Changelog" />}
       <MuiTimeline sx={{paddingX: 0, paddingTop: 0, marginTop: 0}}>
       {data.map((log: any, index: number) => (
         (index == data.length - 1)
