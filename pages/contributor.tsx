@@ -29,22 +29,18 @@ const ContributorPage: NextPage<any> = ({data}) =>{
     <PageContainer name="Contributors">
       <Grid container>
         {!isLargeScreen && <PageHeadingBlock navDisplayName="Contributors" />}
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}> 
-          <Center>
+        <Grid justifyContent="center" alignItems="center" size={{xs: 12, sm: 12, md: 6, lg: 6, xl: 6}}> 
             <HeadingBlock size="h5" text="Thanks the following people contribute to this site" />
             <ListBlock list={data[0]}/>
-          </Center>      
         </Grid>
         
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <Center>
+        <Grid size={{xs: 12, sm: 12, md: 6, lg: 6, xl: 6}}>
             <HeadingBlock size="h5" text="Also thanks this song supporting me!" />
             <HeadingBlock size="h6" text="林家謙 Terence Lam 《一人之境》 Solitude (Official Video)" />
             <Box sx={{ width: '100%'}}>
               <iframe width="100%" height={videoHeight} src="https://www.youtube.com/embed/qWhavDVsMRc" />              
             </Box>
             <ListBlock list={data[1]} />
-          </Center>
         </Grid>
       </Grid>
     </PageContainer>

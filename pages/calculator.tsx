@@ -52,7 +52,7 @@ const CalculatorPage: NextPage = () => {
     return (
       <>
         <Grid container spacing={2}>
-          <Grid item md={3} lg={3} xl={3}>
+          <Grid size={{md: 3, lg: 3, xl: 3}}>
             <Paper>
               <MenuList>
                 {links.map((link, index) => (
@@ -63,10 +63,10 @@ const CalculatorPage: NextPage = () => {
               </MenuList>
             </Paper>
           </Grid>
-          <Grid item md={3} lg={3} xl={3}>
+          <Grid size={{md: 3, lg: 3, xl: 3}}>
             <Input />
           </Grid>
-          <Grid item md={6} lg={6} xl={6}>
+          <Grid size={{md: 6, lg: 6, xl: 6}}>
           </Grid>
         </Grid>
       </>

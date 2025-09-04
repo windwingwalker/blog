@@ -65,8 +65,8 @@ export const ArticleHeadingBlock: React.FC<any> = ({text, marker}) =>{
 export const ArticleParagraphBlock: React.FC<any> = ({text}) =>{
   return (
     <>
-      <Typography variant="body1" component="div" gutterBottom sx={{ fontSize: 25 }}>
-        &para; {text}
+      <Typography variant="body1" component="div" gutterBottom sx={{ fontSize: 20 }}>
+        {text}
       </Typography>
       <br />
     </>

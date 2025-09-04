@@ -69,13 +69,13 @@ const ArticleListPage: NextPage<Props> = ({articleCatalog, tags}) => {
           <FeaturedArticleList />
         </Grid> */}
         
-        <Grid item xs={12} sm={8} md={8} lg={8} xl={8}>
+        <Grid size={{xs: 12, sm: 8, md: 8, lg: 8, xl: 8}}>
           <ArticleCardList value={articlesOfCurrentPage} tags={tags}/>
           <br />
           <MyPagination maxPage={maxPageNumber} currentPage={currentPage} />
         </Grid>
 
-        <Grid item xs={0} sm={4} md={4} lg={4} xl={4}>
+        <Grid size={{xs: 0, sm: 4, md: 4, lg: 4, xl: 4}}>
           <Stack spacing={2}>
             <TagList tags={tags}/>
             <Button variant="outlined" color='jadeite' startIcon={<AutorenewOutlinedIcon />} onClick={() => dispatch(resetAllFilter())}>Reset all Filter</Button>

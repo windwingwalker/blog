@@ -34,16 +34,13 @@ const ArticlePage: NextPage<Props> = ({article}) => {
   
   return (
     <Box padding={2}>
-      <Grid container spacing={2} columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12}}>
-        <Grid item xs sm md lg xl>
-        </Grid>
-        <Grid item sx={{maxWidth: 700}} >
+      <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+        <Grid sx={{maxWidth: 700}} >
           <ArticleTitleBlock text={article["title"]} />
           {
             (article["subtitle"] != null && article["subtitle"] != "-") && 
             <ArticleSubtitleBlock text={article["subtitle"]} />
           }
-          
           <ArticleVersionBlock text={`First Published: ${getDateFromUnix(article["firstPublished"], -5)} | Last Modified: ${getDateFromUnix(article["lastModified"], -5)} | Edition: ${article["edition"]}`} />
           <hr />
           {article["body"].map((block, index) => {
@@ -56,8 +53,6 @@ const ArticlePage: NextPage<Props> = ({article}) => {
             else
               return <ArticleHeadingBlock key={index} text={block[marker]} marker={marker} />
           })}
-        </Grid>
-        <Grid item xs sm md lg xl>
         </Grid>
       </Grid>
     </Box>

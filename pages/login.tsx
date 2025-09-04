@@ -13,6 +13,10 @@ import { Center } from '../components/root';
 import { useSmallScreen } from '../functions/common';
 
 const LoginPage: NextPage<any> = () => {
+
+  /**
+   * We need this box to define the height
+   */
   const MyBox = styled(Box)(({ theme }) => ({
     height: `calc(100% - 56px)`,
     ["@media (min-width:0px) and (orientation: landscape)"]: { height: `calc(100% - 48px)` },
@@ -33,22 +37,17 @@ const LoginPage: NextPage<any> = () => {
 
   return (
     <MyBox paddingX={paddingX}>
-      <Center>
-        <Grid container>
-          <Grid item xs={12} sm={8} md={8} lg={8} xl={8}>
-            <Center>
-              <LoginAnnouncement />
-            </Center> 
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-            <Center>
-              <Form />
-            </Center>
-          </Grid>
+      <Grid container minHeight="100%" sx={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Grid size={{xs: 12, sm: 8, md: 8, lg: 8, xl: 8}}>
+          <LoginAnnouncement />
         </Grid>
-      </Center>
+        <Grid display="flex" justifyContent="center" alignItems="center" size={{xs: 12, sm: 4, md: 4, lg: 4, xl: 4}}>
+          <Form />
+        </Grid>
+      </Grid>
     </MyBox>
-  );
+
+  )
 }
 
 export default LoginPage;

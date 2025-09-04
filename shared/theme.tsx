@@ -64,7 +64,7 @@ let theme = createTheme({
     carbon: {main: CARBON},
   },
   typography: {
-    darkbutton: { color: "#f5f5f5" },
+    darkbutton: { color: "#f5f5f5"},
   },
   breakpoints: {
     values: {

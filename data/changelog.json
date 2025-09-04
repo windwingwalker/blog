@@ -1,5 +1,10 @@
 [ 
   {
+    "content": "Upgraded node version to 22.19 and React to 19",
+    "date": "3 Sep 2025",
+    "version": "2.4.0"
+  },
+  {
     "content": "Improved UI on articles which is missing series / tags / subtitle",
     "date": "1 Feb 2024",
     "version": "2.3.4"
