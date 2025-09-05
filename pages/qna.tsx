@@ -6,7 +6,7 @@ import { useAppDispatch } from '../shared/hooks';
 import { login, logout } from '../shared/userSlice';
 import { isGuest } from '../functions/auth';
 import { PageHeadingBlock } from '../components/textblock';
-import { getJSONInJSObjectFromS3, isLargeScreen} from '../functions/common';
+import { getJSONInJSObjectFromS3, useLargeScreen} from '../functions/common';
 import { PageContainer } from '../components/root';
 import { QABlock } from '../components/qna/root';
 
@@ -20,9 +20,11 @@ const QnAPage: NextPage<any> = ({data}) =>{
     validateRole(); 
   });
 
+  const isLargeScreen = useLargeScreen();
+
   return (
     <PageContainer name="Q&A">
-      {!isLargeScreen() && <PageHeadingBlock navDisplayName="Q&A" />}      
+      {!isLargeScreen && <PageHeadingBlock navDisplayName="Q&A" />}
       {data.map(
         (item: any, index: number) => <QABlock key={index} index={index} question={item["question"]} answer={item["answer"]} />
       )}

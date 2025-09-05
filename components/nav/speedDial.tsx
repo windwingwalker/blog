@@ -5,10 +5,8 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import NavigationTwoToneIcon from '@mui/icons-material/NavigationTwoTone';
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
-import Link from 'next/link';
 import { useRouter } from 'next/router'
-// import { guestNavItemList } from './navItemList';
-import { PAGE_NAV_MAPPING } from '../../shared/constant';
+import { PAGE_NAV_MAPPING, SAND } from '../../shared/constant';
 
 const MySpeedDial: React.FC<{}> = () => {
   const router = useRouter()
@@ -21,14 +19,20 @@ const MySpeedDial: React.FC<{}> = () => {
     <SpeedDial
         ariaLabel="SpeedDial basic example"
         sx={{ position: 'fixed', bottom: 16, right: 16,  }}
-        FabProps={{color: "jadeite"}}
-        icon={<SpeedDialIcon icon={<NavigationTwoToneIcon sx={{color: "#f4eddf"}}/>} openIcon={<CloseTwoToneIcon sx={{color: "#f4eddf"}}/>}/>}
+        FabProps={{
+          color: "jadeite",
+          sx: {
+          '&:hover': { bgcolor: 'jadeite.main' },
+          bgcolor: 'jadeite.main',
+          },
+        }}
+        icon={<SpeedDialIcon icon={<NavigationTwoToneIcon sx={{color: SAND}}/>} openIcon={<CloseTwoToneIcon sx={{color: SAND}}/>}/>}
       >
-        {PAGE_NAV_MAPPING.filter((item) => item.visibility == "guest" || item.visibility == "both").map((item) => (
+        {PAGE_NAV_MAPPING.filter((item) => item["visibility"] == "guest" || item["visibility"] == "both").map((item) => (
             <SpeedDialAction
               key={item["navDisplayName"]}
               icon={item["icon"]}
-              tooltipTitle={item["navDisplayName"]}
+              slotProps={{ tooltip: { title: item["navDisplayName"] } }}
               onClick={() => handleClick(item["path"])}
             />
         ))}

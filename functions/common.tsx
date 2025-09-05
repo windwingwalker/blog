@@ -1,6 +1,7 @@
 import { SSMClient, GetParameterCommand, GetParameterCommandInput, GetParameterCommandOutput } from "@aws-sdk/client-ssm";
 import { S3Client, PutObjectCommand, PutObjectCommandInput, PutObjectCommandOutput, GetObjectCommand , GetObjectCommandInput, GetObjectCommandOutput } from "@aws-sdk/client-s3";
 import { fromEnv } from "@aws-sdk/credential-providers";
+import { useMemo } from 'react';
 import { useMediaQuery } from "react-responsive";
 import { LARGE_SCREEN_MIN_WIDTH, SMALL_SCREEN_MAX_WIDTH } from '../shared/constant';
 
@@ -52,14 +53,27 @@ export const getS3ObjectFromJavaScriptObject = async (data: any | object): Promi
   return Buffer.from(JSON.stringify(data));
 }
 
-export const isSmallScreen = (): boolean => {
-  return useMediaQuery({query: `(max-width: ${SMALL_SCREEN_MAX_WIDTH}px)`});
-}
+export const useSmallScreen = (): boolean => {
+  const query = useMemo(
+    () => `(max-width: ${SMALL_SCREEN_MAX_WIDTH}px)`,
+    []
+  );
+  return useMediaQuery({ query });
+};
 
-export const isMiddleScreen = (): boolean => {
-  return useMediaQuery({query: `(max-width: ${LARGE_SCREEN_MIN_WIDTH-1}px)`});
-}
+export const useMiddleScreen = (): boolean => {
+  const query = useMemo(
+    () => `(max-width: ${LARGE_SCREEN_MIN_WIDTH - 1}px)`,
+    []
+  );
+  return useMediaQuery({ query });
+};
 
-export const isLargeScreen = (): boolean => {
-  return useMediaQuery({query: `(min-width: ${LARGE_SCREEN_MIN_WIDTH}px)`});
-}
+export const useLargeScreen = (): boolean => {
+  const query = useMemo(
+    () => `(min-width: ${LARGE_SCREEN_MIN_WIDTH}px)`,
+    []
+  );
+  return useMediaQuery({ query });
+};
+

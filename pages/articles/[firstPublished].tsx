@@ -1,16 +1,16 @@
 import type { NextPage } from 'next'
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
+import { GetStaticProps, GetStaticPaths} from 'next'
 import axios from 'axios';
 import { ArticleCatalog, Article } from '../../models/article';
 import { ARTICLES_PATH, ARTICLE_URL, ARTICLE_CATALOG_URL } from '../../shared/constant';
-import { Typography, Grid, Box } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import { useEffect } from 'react';
 import { updatePath } from '../../shared/pathSlice';
 import { login, logout } from '../../shared/userSlice';
 import { isGuest } from '../../functions/auth';
 import { getDateFromUnix } from '../../functions/article';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
-import { ArticleHeadingBlock, ArticleParagraphBlock, ArticlePoetryBlock, ArticleSubtitleBlock, ArticleTitleBlock, ArticleVersionBlock } from '../../components/textblock';
+import { ArticleHeadingBlock, ArticleParagraphBlock, ArticlePoetryBlock, ArticleSubtitleBlock, ArticleTitleBlock, ArticleVersionBlock } from '../../components/articles/articleTextBlock';
 
 interface Props{
   article: Article
@@ -34,16 +34,13 @@ const ArticlePage: NextPage<Props> = ({article}) => {
   
   return (
     <Box padding={2}>
-      <Grid container spacing={2} columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12}}>
-        <Grid item xs sm md lg xl>
-        </Grid>
-        <Grid item sx={{maxWidth: 700}} >
+      <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+        <Grid sx={{maxWidth: 700}} >
           <ArticleTitleBlock text={article["title"]} />
           {
             (article["subtitle"] != null && article["subtitle"] != "-") && 
             <ArticleSubtitleBlock text={article["subtitle"]} />
           }
-          
           <ArticleVersionBlock text={`First Published: ${getDateFromUnix(article["firstPublished"], -5)} | Last Modified: ${getDateFromUnix(article["lastModified"], -5)} | Edition: ${article["edition"]}`} />
           <hr />
           {article["body"].map((block, index) => {
@@ -56,8 +53,6 @@ const ArticlePage: NextPage<Props> = ({article}) => {
             else
               return <ArticleHeadingBlock key={index} text={block[marker]} marker={marker} />
           })}
-        </Grid>
-        <Grid item xs sm md lg xl>
         </Grid>
       </Grid>
     </Box>

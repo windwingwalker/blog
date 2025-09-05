@@ -14,7 +14,7 @@ import store from "../shared/store";
 import Head from 'next/head'
 import MySpeedDial from '../components/nav/speedDial';
 import { SAND } from '../shared/constant';
-import { isLargeScreen, isMiddleScreen, isSmallScreen } from '../functions/common';
+import { useLargeScreen, useMiddleScreen, useSmallScreen } from '../functions/common';
 
 Router.events.on('routeChangeStart', () => nProgress.start()); 
 Router.events.on('routeChangeComplete', () => nProgress.done()); 
@@ -31,13 +31,21 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const [open, setOpen] = React.useState(true);
+  const isLargeScreen = useLargeScreen();
+  const isSmallScreen = useSmallScreen();
+  const isMiddleScreen = useMiddleScreen();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleDrawer = () => setOpen(!open);
 
-  const Main = styled(Box)(({theme}) => ({
+  const Main = styled(Box)(({ theme }) => ({
     backgroundColor: SAND,
-    flexGrow: 1, 
-    padding: isSmallScreen() ? 0 : 2, 
+    flexGrow: 1,
+    padding: isSmallScreen ? 0 : 2,
     minHeight: "100vh",
     // ["@media (min-width:0px) and (orientation: landscape)"]: { minHeight: `calc(100% - 48px)` },
     // ["@media (min-width:600px)"]: {minHeight: `calc(100% - 64px)`},
@@ -57,13 +65,17 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <Provider store={store}> 
           <Box sx={{ display: 'flex'}}>
             <CssBaseline />
-            {isLargeScreen() && <MyAppBar open={open} toggleDrawer={toggleDrawer} />}
-            {isLargeScreen() && <MyDrawer open={open} toggleDrawer={toggleDrawer}/>}
-            <Main component="main">
+            {mounted && isLargeScreen && (
+              <MyAppBar open={open} toggleDrawer={toggleDrawer} />
+            )}
+            {mounted && isLargeScreen && (
+              <MyDrawer open={open} toggleDrawer={toggleDrawer} />
+            )}
+            <Main>
               <DrawerHeader />
               <Component {...pageProps} />
-              {isMiddleScreen() && <MySpeedDial />}
-            </Main>            
+              {isMiddleScreen && <MySpeedDial />}
+            </Main>
           </Box>
         </Provider>
       </ThemeProvider>
@@ -99,3 +111,4 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 //     </>
 //   );
 // }
+

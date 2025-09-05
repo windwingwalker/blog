@@ -8,7 +8,7 @@ import { useAppDispatch } from '../shared/hooks';
 import { updatePath } from '../shared/pathSlice';
 import { login, logout } from '../shared/userSlice';
 import { isGuest } from '../functions/auth';
-import { getJSONInJSObjectFromS3, isLargeScreen } from '../functions/common';
+import { getJSONInJSObjectFromS3, useLargeScreen } from '../functions/common';
 import { Description, SkillSet, Cert, WorkExperience, AcademicBackground, Events } from '../components/about/root';
 import { PageHeadingBlock } from '../components/textblock';
 import { PageContainer } from '../components/root';
@@ -23,9 +23,11 @@ const AboutPage: NextPage<any> = ({aboutData, timelineData}) => {
     validateRole(); 
   });
 
+  const isLargeScreen = useLargeScreen();
+
   return (
     <PageContainer name="About">
-      {!isLargeScreen() && <PageHeadingBlock navDisplayName="About" />}
+      {!isLargeScreen && <PageHeadingBlock navDisplayName="About" />}
       <Masonry columns={{ xs: 1, sm: 2, md: 2, lg: 3, xl: 3 }} spacing={2} sx={{marginX: 0}}>
         <Description data={aboutData["description"]}/>
         <Profile data={timelineData}/>

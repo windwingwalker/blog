@@ -11,7 +11,7 @@ interface Log {
 export const SingleLog:React.FC<Log> = (log) => {
   return (
     <TimelineItem >
-      <TimelineOppositeContent color="text.secondary" sx={{maxWidth: 127}}>
+      <TimelineOppositeContent color="text.primary" sx={{maxWidth: 127}}>
         <Typography>
           {log["date"]}
         </Typography>
@@ -22,7 +22,7 @@ export const SingleLog:React.FC<Log> = (log) => {
         }
       </TimelineOppositeContent>
       <TimelineSeparator>
-        <TimelineDot />
+        <TimelineDot/>
         {!log["isLast"] && <TimelineConnector />}
       </TimelineSeparator>
       <TimelineContent>

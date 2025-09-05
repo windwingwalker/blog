@@ -16,11 +16,11 @@ interface Event {
 const SingleEvent:React.FC<Event> = (event: Event) => {
   return (
     <TimelineItem>
-      <TimelineOppositeContent color="text.secondary" sx={{maxWidth: 105}}>
+      <TimelineOppositeContent color="text.primary" sx={{maxWidth: 105}}>
         {event.date}
       </TimelineOppositeContent>
       <TimelineSeparator>
-        <TimelineDot variant="outlined" color={event.color}/>
+        <TimelineDot variant="outlined" color="success"/>
         <TimelineConnector />
       </TimelineSeparator>
       <TimelineContent>
