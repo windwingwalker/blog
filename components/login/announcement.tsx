@@ -1,4 +1,4 @@
-import { HeadingBlock, HyperLinkSpan } from '../textblock';
+import { HeadingBlock} from '../textblock';
 import data from "../../data/announcement.json"
 
 const LoginAnnouncement: React.FC<any> = () => {

@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from 'next'
+import type { NextPage } from 'next'
 import { useEffect } from 'react';
 import { CHANGE_LOG_PATH } from '../shared/constant';
 import { updatePath } from '../shared/pathSlice';

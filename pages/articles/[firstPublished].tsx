@@ -1,16 +1,16 @@
 import type { NextPage } from 'next'
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
+import { GetStaticProps, GetStaticPaths} from 'next'
 import axios from 'axios';
 import { ArticleCatalog, Article } from '../../models/article';
 import { ARTICLES_PATH, ARTICLE_URL, ARTICLE_CATALOG_URL } from '../../shared/constant';
-import { Typography, Grid, Box } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import { useEffect } from 'react';
 import { updatePath } from '../../shared/pathSlice';
 import { login, logout } from '../../shared/userSlice';
 import { isGuest } from '../../functions/auth';
 import { getDateFromUnix } from '../../functions/article';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
-import { ArticleHeadingBlock, ArticleParagraphBlock, ArticlePoetryBlock, ArticleSubtitleBlock, ArticleTitleBlock, ArticleVersionBlock } from '../../components/textblock';
+import { ArticleHeadingBlock, ArticleParagraphBlock, ArticlePoetryBlock, ArticleSubtitleBlock, ArticleTitleBlock, ArticleVersionBlock } from '../../components/articles/articleTextBlock';
 
 interface Props{
   article: Article

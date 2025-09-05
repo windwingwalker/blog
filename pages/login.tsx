@@ -9,7 +9,6 @@ import { login, logout } from '../shared/userSlice';
 import { isGuest } from '../functions/auth';
 import  Form from '../components/login/form'
 import LoginAnnouncement from '../components/login/announcement';
-import { Center } from '../components/root';
 import { useSmallScreen } from '../functions/common';
 
 const LoginPage: NextPage<any> = () => {
@@ -46,7 +45,6 @@ const LoginPage: NextPage<any> = () => {
         </Grid>
       </Grid>
     </MyBox>
-
   )
 }
 

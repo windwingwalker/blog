@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import axios from 'axios';
-import { Grid, Stack, Box, Button } from '@mui/material';
+import { Grid, Stack, Button } from '@mui/material';
 import { TagList } from '../../components/articles/tag-list';
 import History from '../../components/articles/history';
 import { ArticleCatalog, ArticleMetadata, ArticleTag } from '../../models/article';

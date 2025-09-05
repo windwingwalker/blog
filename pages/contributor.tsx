@@ -6,7 +6,7 @@ import { updatePath } from '../shared/pathSlice';
 import { useAppDispatch } from '../shared/hooks';
 import { login, logout } from '../shared/userSlice';
 import { isGuest } from '../functions/auth';
-import { Center, PageContainer } from '../components/root';
+import { PageContainer } from '../components/root';
 import { HeadingBlock, ListBlock, PageHeadingBlock } from '../components/textblock';
 import { getJSONInJSObjectFromS3, useLargeScreen } from '../functions/common';
 

@@ -1,4 +1,4 @@
-import { PaginationItem, Pagination, Box, Toolbar, Button } from '@mui/material';
+import { Pagination } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 import { setCurrentPage } from '../../shared/articleSlice';
 

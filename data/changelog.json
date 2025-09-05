@@ -1,7 +1,7 @@
 [ 
   {
-    "content": "Upgraded node version to 22.19 and React to 19",
-    "date": "3 Sep 2025",
+    "content": "Upgraded node version to 22.19, React to 19.1.1, Next JS to 15.5.2",
+    "date": "4 Sep 2025",
     "version": "2.4.0"
   },
   {
