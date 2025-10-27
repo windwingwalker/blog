@@ -34,7 +34,7 @@ export const ArticlePoetryBlock: React.FC<any> = ({sentenceList}) => {
   return (
     sentenceList.map((sentence: any, index: number) => 
       <Typography key={index} variant='body1' component="div" align="center" sx={{ fontSize: 20 }} >
-        {sentence}
+        {parse(sentence)}
       </Typography>
     )
   );
