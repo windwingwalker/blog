@@ -5,7 +5,7 @@ import { Box, CssBaseline } from '@mui/material';
 import type { AppProps } from 'next/app';
 import MyDrawer from '../components/nav/drawer';
 import MyAppBar from '../components/appbar';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import nProgress from 'nprogress';
 import "../styles/nprogress.css";
 import theme from "../shared/theme";
@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import store from "../shared/store";
 import Head from 'next/head'
 import MySpeedDial from '../components/nav/speedDial';
-import { SAND } from '../shared/constant';
+import { SAND, MAINTENANCE_PATH } from '../shared/constant';
 import { useLargeScreen, useMiddleScreen, useSmallScreen } from '../functions/common';
 
 Router.events.on('routeChangeStart', () => nProgress.start()); 
@@ -30,11 +30,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
   const [open, setOpen] = React.useState(true);
   const isLargeScreen = useLargeScreen();
   const isSmallScreen = useSmallScreen();
   const isMiddleScreen = useMiddleScreen();
   const [mounted, setMounted] = React.useState(false);
+  const isMaintenancePage = router.pathname === MAINTENANCE_PATH;
 
   React.useEffect(() => {
     setMounted(true);
@@ -65,16 +67,16 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <Provider store={store}> 
           <Box sx={{ display: 'flex'}}>
             <CssBaseline />
-            {mounted && isLargeScreen && (
+            {mounted && isLargeScreen && !isMaintenancePage && (
               <MyAppBar open={open} toggleDrawer={toggleDrawer} />
             )}
-            {mounted && isLargeScreen && (
+            {mounted && isLargeScreen && !isMaintenancePage && (
               <MyDrawer open={open} toggleDrawer={toggleDrawer} />
             )}
             <Main>
-              <DrawerHeader />
+              {!isMaintenancePage && <DrawerHeader />}
               <Component {...pageProps} />
-              {isMiddleScreen && <MySpeedDial />}
+              {isMiddleScreen && !isMaintenancePage && <MySpeedDial />}
             </Main>
           </Box>
         </Provider>

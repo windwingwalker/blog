@@ -24,6 +24,7 @@ export const DASHBOARD_PATH = PATH_PREFIX + "/dashboard";
 export const PAGE_NOT_FOUND_PATH = PATH_PREFIX + "/404";
 export const UNKNOWN_PATH = PATH_PREFIX + "/500";
 export const QNA_PATH = PATH_PREFIX + "/qna";
+export const MAINTENANCE_PATH = PATH_PREFIX + "/maintenance";
 
 export const PAGE_NAV_MAPPING: {navDisplayName: string, pageHeadingDisplayName: string, icon: any, path: string, visibility: string}[] = [
   { icon: <HomeIcon />, navDisplayName: 'Home', pageHeadingDisplayName: "System Architecture", path: HOME_PATH, visibility: "both"},

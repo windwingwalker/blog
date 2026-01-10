@@ -1,11 +1,16 @@
 [ 
   {
+    "content": "Added maintainence page",
+    "date": "10 Jan 2026",
+    "version": "2.5.0"
+  },
+  {
     "content": "Upgraded node and depedency version",
     "date": "28 Dec 2025",
     "version": "2.4.2"
   },
   {
-    "content": "Add HTML parse to poetry block",
+    "content": "Added HTML parse to poetry block",
     "date": "27 Oct 2025",
     "version": "2.4.1"
   },
