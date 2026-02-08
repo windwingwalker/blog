@@ -11,7 +11,7 @@ import  Form from '../components/login/form'
 import LoginAnnouncement from '../components/login/announcement';
 import { useSmallScreen } from '../functions/common';
 
-const LoginPage: NextPage<any> = () => {
+const LoginPage: NextPage = () => {
 
   /**
    * We need this box to define the height

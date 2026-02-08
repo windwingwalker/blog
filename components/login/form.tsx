@@ -90,12 +90,13 @@ const Form: React.FC<{}> = () => {
         setNewPassword('');
         setConfirmPassword('');
       }
-    } catch (e: any) {
-      setError(e?.message || "Failed to set new password. Please try again.");
+    } catch (e) {
+      const error = e as Error;
+      setError(error?.message || "Failed to set new password. Please try again.");
     }
   }
 
-  const _handleSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const _handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
     const client = new CognitoIdentityProviderClient({ region: "us-east-1" });
@@ -133,8 +134,9 @@ const Form: React.FC<{}> = () => {
         cookies.set('accessToken', accessToken, cookieOption);
         cookies.set('refreshToken', refreshToken, cookieOption);
       }
-    }catch (e: any){
-      setError(e?.message || "Authentication failed. Please check your credentials.");
+    }catch (e) {
+      const error = e as Error;
+      setError(error?.message || "Authentication failed. Please check your credentials.");
     }
   }
   // Show new password form if challenge is NEW_PASSWORD_REQUIRED
@@ -202,7 +204,7 @@ const Form: React.FC<{}> = () => {
       component="form"
       noValidate
       autoComplete="off"
-      onSubmit={(e: any) => _handleSubmit(e)}
+      onSubmit={_handleSubmit}
     >
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>

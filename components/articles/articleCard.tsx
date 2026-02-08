@@ -7,15 +7,20 @@ import { getDateFromUnix } from '../../functions/article';
 import { useSmallScreen } from '../../functions/common';
 import { Stack, Box, Typography, Card, CardActionArea, CardContent } from '@mui/material';
 
-interface Props {
-  articleMetadata: ArticleMetadata,
-  tags: ArticleTag[]
+interface ArticleCardProps {
+  articleMetadata: ArticleMetadata;
+  tags: ArticleTag[];
+}
+
+interface ArticleCardListProps {
+  value: ArticleMetadata[];
+  tags: ArticleTag[];
 }
 
 // const FeaturedArticleList: React.FC = () => {
 //     return (
 //         <Stack direction="row" spacing={2} sx={{maxWidth: "85vw", overflowY: "scroll"}} >
-        
+
 //             {articles.filter(article => article.featured).map((article: Article, index: number) => (
 //             <FeaturedArticleCard key={index} id={article.id} title={article.title} featured={article.featured} content={article.content}/>
 //             ))}
@@ -23,7 +28,7 @@ interface Props {
 //     );
 // }
 
-export const ArticleCardList: React.FC<any> = ({value, tags}: any) => {
+export const ArticleCardList: React.FC<ArticleCardListProps> = ({value, tags}) => {
   return (
     <Stack spacing={2} >
       {value.map((articleMetadata: ArticleMetadata, index: number) => 
@@ -33,7 +38,7 @@ export const ArticleCardList: React.FC<any> = ({value, tags}: any) => {
   );
 }
 
-const FeaturedArticleCard: React.FC<Props> = ({articleMetadata}) => {
+const FeaturedArticleCard: React.FC<ArticleCardProps> = ({articleMetadata}) => {
   return (
     <Card sx={{ minWidth: 350}}>
       <CardContent>
@@ -57,7 +62,7 @@ const FeaturedArticleCard: React.FC<Props> = ({articleMetadata}) => {
   );
 }
 
-const ArticleCard: React.FC<Props> = ({articleMetadata, tags}) => {
+const ArticleCard: React.FC<ArticleCardProps> = ({articleMetadata, tags}) => {
   const isSmallScreen = useSmallScreen();
 
   const paddingX = isSmallScreen ? 1 : 3;
@@ -86,9 +91,9 @@ const ArticleCard: React.FC<Props> = ({articleMetadata, tags}) => {
             </Typography>
           }
           {
-            articleMetadata["tags"] != null && articleMetadata["tags"].map((tagName: string, index) => {
-              var foo = tags.filter((data: ArticleTag) => data["id"] == tagName)[0]
-              return <Tag key={index} articleTag={foo}/>
+            articleMetadata.tags != null && articleMetadata.tags.map((tagName: string, index) => {
+              const matchedTag = tags.find(data => data.id === tagName);
+              return matchedTag ? <Tag key={index} articleTag={matchedTag}/> : null;
             })
           }
         </CardContent>

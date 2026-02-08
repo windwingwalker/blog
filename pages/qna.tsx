@@ -10,7 +10,16 @@ import { getJSONInJSObjectFromS3, useLargeScreen} from '../functions/common';
 import { PageContainer } from '../components/root';
 import { QABlock } from '../components/qna/root';
 
-const QnAPage: NextPage<any> = ({data}) =>{
+interface QnAItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  data: QnAItem[];
+}
+
+const QnAPage: NextPage<Props> = ({data}) =>{
   const dispatch = useAppDispatch();
   useEffect(() => {
     const validateRole = async () => {
@@ -26,14 +35,14 @@ const QnAPage: NextPage<any> = ({data}) =>{
     <PageContainer name="Q&A">
       {!isLargeScreen && <PageHeadingBlock navDisplayName="Q&A" />}
       {data.map(
-        (item: any, index: number) => <QABlock key={index} index={index} question={item["question"]} answer={item["answer"]} />
+        (item, index: number) => <QABlock key={index} index={index} question={item.question} answer={item.answer} />
       )}
     </PageContainer>
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const data: Object[] = await getJSONInJSObjectFromS3("blog/qna.json");
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const data = await getJSONInJSObjectFromS3("blog/qna.json") as QnAItem[];
   
   return {
     props: {data},

@@ -9,7 +9,17 @@ import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import Image from 'next/image';
 
-const Profile:React.FC<any> = ({data}) => {
+interface Event {
+  name: string;
+  date: string;
+  color: 'inherit' | 'grey' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+}
+
+interface ProfileProps {
+  data: Event[];
+}
+
+const Profile: React.FC<ProfileProps> = ({data}) => {
   const handleLinkedInClick = () => {
     window.open("http://www.linkedin.com/in/elliot-kam-8043b1188");
   };

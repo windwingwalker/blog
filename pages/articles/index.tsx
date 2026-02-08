@@ -30,9 +30,9 @@ interface Props{
 
 const ArticleListPage: NextPage<Props> = ({articleCatalog, tags}) => {
   const dispatch = useAppDispatch();
-  const tagSelected: string[] = useAppSelector((state: any) => state.article.tags)
-  const seriesSelected: string = useAppSelector((state: any) => state.article.series)
-  const currentPage: number = useAppSelector((state: any) => state.article.currentPage)
+  const tagSelected: string[] = useAppSelector(state => state.article.tags)
+  const seriesSelected: string = useAppSelector(state => state.article.series)
+  const currentPage: number = useAppSelector(state => state.article.currentPage)
   const [maxPageNumber, setMaxPageNumber] = useState(1);
 
   const router = useRouter();

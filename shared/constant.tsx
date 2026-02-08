@@ -8,6 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import { ReactElement } from 'react';
 
 /**
  * Front-end Path
@@ -26,7 +27,15 @@ export const UNKNOWN_PATH = PATH_PREFIX + "/500";
 export const QNA_PATH = PATH_PREFIX + "/qna";
 export const MAINTENANCE_PATH = PATH_PREFIX + "/maintenance";
 
-export const PAGE_NAV_MAPPING: {navDisplayName: string, pageHeadingDisplayName: string, icon: any, path: string, visibility: string}[] = [
+export interface PageNavMapping {
+  navDisplayName: string;
+  pageHeadingDisplayName: string;
+  icon: ReactElement;
+  path: string;
+  visibility: 'both' | 'admin' | 'guest';
+}
+
+export const PAGE_NAV_MAPPING: PageNavMapping[] = [
   { icon: <HomeIcon />, navDisplayName: 'Home', pageHeadingDisplayName: "System Architecture", path: HOME_PATH, visibility: "both"},
   { icon: <AccountBoxIcon />, navDisplayName: 'About', pageHeadingDisplayName: "About", path: ABOUT_PATH, visibility: "both" },
   { icon: <ArticleIcon />, navDisplayName: 'Articles', pageHeadingDisplayName: "文章列表 Article List", path: ARTICLES_PATH, visibility: "both" },

@@ -10,7 +10,13 @@ import { PageContainer } from '../components/root';
 import { HeadingBlock, ListBlock, PageHeadingBlock } from '../components/textblock';
 import { getJSONInJSObjectFromS3, useLargeScreen } from '../functions/common';
 
-const ContributorPage: NextPage<any> = ({data}) =>{
+type ListElement = string | { h: string; body: ListElement[] };
+
+interface ContributorPageProps {
+  data: ListElement[][];
+}
+
+const ContributorPage: NextPage<ContributorPageProps> = ({data}) =>{
   const dispatch = useAppDispatch();
   useEffect(() => {
     const validateRole = async () => {

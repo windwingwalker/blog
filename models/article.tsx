@@ -21,7 +21,7 @@ export interface Article{
   tags?: string[];
   series?: string;
   body: {
-    [key: string]: string;
+    [key: string]: string | string[];
   }[];
 }
 
@@ -34,7 +34,7 @@ export interface ArticleCatalog{
 
 export interface ArticleTag {
   id: string; // Label mean the value displayed to user
-  color: any;
+  color: 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
   name: string; //name mean the value used to processed in background
 }
 

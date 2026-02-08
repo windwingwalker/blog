@@ -15,7 +15,7 @@ const links = [
   {name: "Sum of Geometric Sequence", label: "sum-of-geometric-sequence"},
 ]
 
-const Input: React.FC<any> = () => {
+const Input: React.FC = () => {
   return (
     <>
       <Paper sx={{padding: "2px"}}>

@@ -128,8 +128,18 @@ const interactivityProperties = {
   activeOuterRadiusOffset: 8,
 }
 
-const MyResponsivePie: React.FC<any> = ({ data }) => {
-  // const legendsProperties: object = 
+interface PieData {
+  id: string;
+  label: string;
+  value: number;
+  color: string;
+}
+
+interface MyResponsivePieProps {
+  data: PieData[];
+}
+
+const MyResponsivePie: React.FC<MyResponsivePieProps> = ({ data }) => {
   return (
     <ResponsivePie
       data={data}

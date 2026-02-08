@@ -2,33 +2,58 @@ import parse from 'html-react-parser'
 import { Grid, Link, Typography, Box } from '@mui/material';
 import { PAGE_NAV_MAPPING } from '../shared/constant';
 
-export const ListBlock: React.FC<any> = ({list}: any) => 
+type ListElement = string | { h: string; body: ListElement[] };
+
+interface ListBlockProps {
+  list: ListElement[];
+}
+
+export const ListBlock: React.FC<ListBlockProps> = ({list}) =>
   <ul>
-    {list.map((element: any, index: number) => typeof element === 'string' ? 
-      <li key={index}><ParagraphBlock text={element} /></li> : 
-      <li key={index}><ParagraphBlock text={element["h"]} /> 
-        <ListBlock list={element["body"]} />
+    {list.map((element, index: number) => typeof element === 'string' ?
+      <li key={index}><ParagraphBlock text={element} /></li> :
+      <li key={index}><ParagraphBlock text={element.h} />
+        <ListBlock list={element.body} />
       </li>
     )}
   </ul>
 
-export const HyperLinkSpan: React.FC<any> = ({text, link}) => 
+interface HyperLinkSpanProps {
+  text: string;
+  link: string;
+}
+
+export const HyperLinkSpan: React.FC<HyperLinkSpanProps> = ({text, link}) =>
   <Link color="jadeite.main" href={link}>
     {parse(text)}
   </Link>
 
-export const HeadingBlock: React.FC<any> = ({size, text, color="text.primary"}) => 
+interface HeadingBlockProps {
+  size: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  text: string;
+  color?: string;
+}
+
+export const HeadingBlock: React.FC<HeadingBlockProps> = ({size, text, color="text.primary"}) =>
   <Typography variant={size} component="div" color={color}>
     {parse(text)}
   </Typography>
 
+interface ParagraphBlockProps {
+  text: string;
+}
 
-export const ParagraphBlock: React.FC<any> = ({text}) =>
+export const ParagraphBlock: React.FC<ParagraphBlockProps> = ({text}) =>
   <Typography variant="body1" color="text.primary">
     {parse(text)}
   </Typography>
 
-export const PageHeadingBlock: React.FC<any> = ({size="h4", navDisplayName}) => {
+interface PageHeadingBlockProps {
+  size?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  navDisplayName: string;
+}
+
+export const PageHeadingBlock: React.FC<PageHeadingBlockProps> = ({size="h4", navDisplayName}) => {
   const res = PAGE_NAV_MAPPING.filter((item) => item.navDisplayName == navDisplayName)[0]
 
   return (

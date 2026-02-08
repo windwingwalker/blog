@@ -8,12 +8,16 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 
 interface Event {
-  name: string,
-  date: string,
-  color: any
+  name: string;
+  date: string;
+  color: 'inherit' | 'grey' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
 }
 
-const SingleEvent:React.FC<Event> = (event: Event) => {
+interface TimelineProps {
+  data: Event[];
+}
+
+const SingleEvent: React.FC<Event> = (event) => {
   return (
     <TimelineItem>
       <TimelineOppositeContent color="text.primary" sx={{maxWidth: 105}}>
@@ -30,12 +34,12 @@ const SingleEvent:React.FC<Event> = (event: Event) => {
   );
 }
 
-const Timeline:React.FC<any> = ({data}) => {
+const Timeline: React.FC<TimelineProps> = ({data}) => {
   return (
     <>
       <MuiTimeline>
-          {data.map((event: Event, index: number) => (
-              <SingleEvent key={index} name={event.name} date={event.date} color={event.color}/> 
+          {data.map((event, index: number) => (
+              <SingleEvent key={index} name={event.name} date={event.date} color={event.color}/>
           ))}
       </MuiTimeline>
     </>

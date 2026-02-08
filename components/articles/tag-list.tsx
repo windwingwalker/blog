@@ -15,7 +15,6 @@ export const Tag: React.FC<{articleTag: ArticleTag}> = ({articleTag}) => {
         variant="outlined"
         sx={{marginBottom: "8px"}}
         onClick={() => {
-          console.log(articleTag["id"])
           dispatch(addTagFilter(articleTag["id"]));
           dispatch(setCurrentPage(1));
         }}
@@ -24,7 +23,11 @@ export const Tag: React.FC<{articleTag: ArticleTag}> = ({articleTag}) => {
   );
 }
 
-export const TagList: React.FC<any> = ({tags}) => {
+interface TagListProps {
+  tags: ArticleTag[];
+}
+
+export const TagList: React.FC<TagListProps> = ({tags}) => {
     return (
       <>
       <Paper>
@@ -40,7 +43,7 @@ export const TagList: React.FC<any> = ({tags}) => {
           }}
           component="ul"
         >
-          {tags.map((tag: ArticleTag, index: number) => (
+          {tags.map((tag, index: number) => (
               <Tag key={index} articleTag={tag} />
           )
           )}

@@ -4,7 +4,18 @@ import { HeadingBlock, ListBlock, PageHeadingBlock, ParagraphBlock } from '../te
 const CARD_BACKGROUND_COLOR = "#FFFAF0"
 const TITLE_COLOR = "#B8860B"
 
-export const Description:React.FC<any> = ({data}: any) => {
+type ListElement = string | { h: string; body: ListElement[] };
+
+interface DescriptionData {
+  h1: string;
+  body: string;
+}
+
+interface DescriptionProps {
+  data: DescriptionData;
+}
+
+export const Description:React.FC<DescriptionProps> = ({data}) => {
   return (
     <Paper sx={{padding: "10px", bgcolor: CARD_BACKGROUND_COLOR}}>
       <HeadingBlock size="h5" text={data["h1"]} color={TITLE_COLOR}/>
@@ -13,15 +24,27 @@ export const Description:React.FC<any> = ({data}: any) => {
   );
 }
 
-export const WorkExperience: React.FC<any> = ({data}: any) => {
+interface WorkExperienceData {
+  h1: string;
+  body: Array<{
+    h: string;
+    body: ListElement[];
+  }>;
+}
+
+interface WorkExperienceProps {
+  data: WorkExperienceData;
+}
+
+export const WorkExperience: React.FC<WorkExperienceProps> = ({data}) => {
   return (
-    <Paper sx={{padding: "10px", bgcolor: CARD_BACKGROUND_COLOR}}> 
+    <Paper sx={{padding: "10px", bgcolor: CARD_BACKGROUND_COLOR}}>
       <HeadingBlock size="h5" text={data["h1"]} color={TITLE_COLOR}/>
       <Typography variant="body1" component="div" gutterBottom color="jadeite.main">
         {data["body"][0]["h"]}
       </Typography>
-      <ListBlock list={data["body"][0]["body"]} />     
-       
+      <ListBlock list={data["body"][0]["body"]} />
+
       <Divider variant="middle" sx={{backgroundColor: "sand.main"}}/>
       <br />
 
@@ -41,7 +64,16 @@ export const WorkExperience: React.FC<any> = ({data}: any) => {
   );
 }
 
-export const AcademicBackground: React.FC<any> = ({data}: any) => {
+interface SectionData {
+  h1: string;
+  body: ListElement[];
+}
+
+interface SectionProps {
+  data: SectionData;
+}
+
+export const AcademicBackground: React.FC<SectionProps> = ({data}) => {
   return (
     <Paper sx={{padding: "10px", bgcolor: CARD_BACKGROUND_COLOR}}>
       <HeadingBlock size="h5" text={data["h1"]} color={TITLE_COLOR}/>
@@ -50,7 +82,7 @@ export const AcademicBackground: React.FC<any> = ({data}: any) => {
   );
 }
 
-export const Events: React.FC<any> = ({data}: any) => {
+export const Events: React.FC<SectionProps> = ({data}) => {
   return (
     <Paper sx={{padding: "10px", bgcolor: CARD_BACKGROUND_COLOR}}>
       <HeadingBlock size="h5" text={data["h1"]} color={TITLE_COLOR}/>
@@ -59,7 +91,7 @@ export const Events: React.FC<any> = ({data}: any) => {
   );
 }
 
-export const Cert: React.FC<any> = ({data}: any) => {
+export const Cert: React.FC<SectionProps> = ({data}) => {
   return (
     <Paper sx={{padding: "10px", bgcolor: CARD_BACKGROUND_COLOR}}>
       <HeadingBlock size="h5" text={data["h1"]} color={TITLE_COLOR}/>
@@ -68,7 +100,7 @@ export const Cert: React.FC<any> = ({data}: any) => {
   );
 }
 
-export const SkillSet: React.FC<any> = ({data}: any) => {
+export const SkillSet: React.FC<SectionProps> = ({data}) => {
   return (
     <Paper sx={{padding: "10px", bgcolor: CARD_BACKGROUND_COLOR}}>
       <HeadingBlock size="h5" text={data["h1"]} color={TITLE_COLOR}/>

@@ -13,7 +13,50 @@ import { Description, SkillSet, Cert, WorkExperience, AcademicBackground, Events
 import { PageHeadingBlock } from '../components/textblock';
 import { PageContainer } from '../components/root';
 
-const AboutPage: NextPage<any> = ({aboutData, timelineData}) => {
+type ListElement = string | { h: string; body: ListElement[] };
+
+interface Event {
+  name: string;
+  date: string;
+  color: 'inherit' | 'grey' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+}
+
+interface AboutData {
+  description: {
+    h1: string;
+    body: string;
+  };
+  skillSet: {
+    h1: string;
+    body: ListElement[];
+  };
+  certificates: {
+    h1: string;
+    body: ListElement[];
+  };
+  workExperience: {
+    h1: string;
+    body: Array<{
+      h: string;
+      body: ListElement[];
+    }>;
+  };
+  academicBackground: {
+    h1: string;
+    body: ListElement[];
+  };
+  events: {
+    h1: string;
+    body: ListElement[];
+  };
+}
+
+interface AboutPageProps {
+  aboutData: AboutData;
+  timelineData: Event[];
+}
+
+const AboutPage: NextPage<AboutPageProps> = ({aboutData, timelineData}) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     const validateRole = async () => {

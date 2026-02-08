@@ -17,39 +17,70 @@ const getParameterFromSSM = async (ssmPath: string): Promise<string> => {
   return response["Parameter"]["Value"]!;
 }
 
-const getS3ObjectFromS3 = async (bucketName: string, objectKey: string): Promise<any | Blob | ReadableStream> => {
+const getS3ObjectFromS3 = async (bucketName: string, objectKey: string): Promise<ReadableStream | Blob | undefined> => {
   const client: S3Client = new S3Client({ region: "us-east-1", credentials: {accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID!, secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY!}});
   const params: GetObjectCommandInput = {Bucket: bucketName, Key: objectKey};
   const command: GetObjectCommand = new GetObjectCommand(params);
   const response: GetObjectCommandOutput = await client.send(command);
 
   if (response["$metadata"]["httpStatusCode"] != 200) throw new Error(`S3 response status code is ${response["$metadata"]["httpStatusCode"]}`);
-  return response["Body"];
+  return response["Body"] as ReadableStream | Blob | undefined;
 }
 
-const getJavaScriptObjectFromS3JSON = async (s3Object: any | Blob | ReadableStream): Promise<any | object | object[]> => {
+const getJavaScriptObjectFromS3JSON = async <T = unknown>(s3Object: ReadableStream | Blob | undefined): Promise<T> => {
   const dataInString = await getStringFromStream(s3Object);
-  const dataInObject: any | object | object[] = await JSON.parse(dataInString);
+  const dataInObject: T = JSON.parse(dataInString);
   return dataInObject;
 }
 
-export const getJSONInJSObjectFromS3 = async (fileName: string): Promise<any> => {
+export const getJSONInJSObjectFromS3 = async <T = unknown>(fileName: string): Promise<T> => {
   const bucketName: string = await getParameterFromSSM("/blog/s3-bucket-name");
   const dataInStream = await getS3ObjectFromS3(bucketName, fileName);
-  const data: any = await getJavaScriptObjectFromS3JSON(dataInStream);
+  const data: T = await getJavaScriptObjectFromS3JSON<T>(dataInStream);
   return data;
 }
 
-const getStringFromStream = async (stream: any): Promise<string> => {
-  const chunks: any = [];
-  return new Promise((resolve, reject) => {
-    stream.on('data', (chunk: any) => chunks.push(Buffer.from(chunk)));
-    stream.on('error', (err: any) => reject(err));
-    stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
-  })
+const getStringFromStream = async (stream: ReadableStream | Blob | undefined): Promise<string> => {
+  if (!stream) {
+    throw new Error('Stream is undefined');
+  }
+
+  // Handle Node.js stream (has 'on' method)
+  if ('on' in stream && typeof stream.on === 'function') {
+    const chunks: Buffer[] = [];
+    return new Promise((resolve, reject) => {
+      (stream as any).on('data', (chunk: Buffer) => chunks.push(Buffer.from(chunk)));
+      (stream as any).on('error', (err: Error) => reject(err));
+      (stream as any).on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+    });
+  }
+
+  // Handle Blob
+  if (stream instanceof Blob) {
+    return await stream.text();
+  }
+
+  // Handle ReadableStream (browser)
+  const reader = stream.getReader();
+  const chunks: Uint8Array[] = [];
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (value) chunks.push(value);
+  }
+
+  const concatenated = new Uint8Array(chunks.reduce((acc, chunk) => acc + chunk.length, 0));
+  let position = 0;
+  for (const chunk of chunks) {
+    concatenated.set(chunk, position);
+    position += chunk.length;
+  }
+
+  return new TextDecoder().decode(concatenated);
 }
 
-export const getS3ObjectFromJavaScriptObject = async (data: any | object): Promise<any | Blob | ReadableStream> => {
+export const getS3ObjectFromJavaScriptObject = async (data: object): Promise<Buffer> => {
   return Buffer.from(JSON.stringify(data));
 }
 

@@ -1,11 +1,15 @@
 import { Grid, Link, Typography, Box } from '@mui/material';
 import parse from 'html-react-parser'
 
+interface ArticleHeadingBlockProps {
+  text: string;
+  marker: string;
+}
 
-export const ArticleHeadingBlock: React.FC<any> = ({text, marker}) =>{
-  var prefix = "";
-  var n = +marker.charAt(1);
-  for (var i = 0; i < n; i++){
+export const ArticleHeadingBlock: React.FC<ArticleHeadingBlockProps> = ({text, marker}) =>{
+  let prefix = "";
+  const n = +marker.charAt(1);
+  for (let i = 0; i < n; i++){
     prefix += "&sect;"
   }
 
@@ -19,7 +23,11 @@ export const ArticleHeadingBlock: React.FC<any> = ({text, marker}) =>{
   );
 }
 
-export const ArticleParagraphBlock: React.FC<any> = ({text}) =>{
+interface ArticleParagraphBlockProps {
+  text: string;
+}
+
+export const ArticleParagraphBlock: React.FC<ArticleParagraphBlockProps> = ({text}) =>{
   return (
     <>
       <Typography variant="body1" component="div" gutterBottom sx={{ fontSize: 20 }}>
@@ -30,9 +38,13 @@ export const ArticleParagraphBlock: React.FC<any> = ({text}) =>{
   );
 }
 
-export const ArticlePoetryBlock: React.FC<any> = ({sentenceList}) => {
+interface ArticlePoetryBlockProps {
+  sentenceList: string[];
+}
+
+export const ArticlePoetryBlock: React.FC<ArticlePoetryBlockProps> = ({sentenceList}) => {
   return (
-    sentenceList.map((sentence: any, index: number) => 
+    sentenceList.map((sentence, index: number) =>
       <Typography key={index} variant='body1' component="div" align="center" sx={{ fontSize: 20 }} >
         {parse(sentence)}
       </Typography>
@@ -40,15 +52,23 @@ export const ArticlePoetryBlock: React.FC<any> = ({sentenceList}) => {
   );
 }
 
-export const ArticleTitleBlock: React.FC<any> = ({text}) => {
+interface ArticleTitleBlockProps {
+  text: string;
+}
+
+export const ArticleTitleBlock: React.FC<ArticleTitleBlockProps> = ({text}) => {
   return (
-    <Typography variant="h3" component="div" align="center" gutterBottom sx={{fontWeight: 'bold'}}> 
+    <Typography variant="h3" component="div" align="center" gutterBottom sx={{fontWeight: 'bold'}}>
       {text}
     </Typography>
   );
 }
 
-export const ArticleSubtitleBlock: React.FC<any> = ({text}) => {
+interface ArticleSubtitleBlockProps {
+  text: string;
+}
+
+export const ArticleSubtitleBlock: React.FC<ArticleSubtitleBlockProps> = ({text}) => {
   return (
     <Typography variant="h4" component="div" align="center" gutterBottom sx={{fontWeight: 'medium'}}>
       {text}
@@ -56,7 +76,11 @@ export const ArticleSubtitleBlock: React.FC<any> = ({text}) => {
   );
 }
 
-export const ArticleVersionBlock: React.FC<any> = ({text}) => {
+interface ArticleVersionBlockProps {
+  text: string;
+}
+
+export const ArticleVersionBlock: React.FC<ArticleVersionBlockProps> = ({text}) => {
   return (
     <>
       <Typography variant="overline" component="div" align="center" gutterBottom color="text.secondary" sx={{fontWeight: 'medium'}}>

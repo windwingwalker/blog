@@ -12,7 +12,13 @@ import { SingleLog } from '../components/changelog/root';
 import { PageContainer } from '../components/root';
 import data from '../data/changelog.json'
 
-const ChangelogPage: NextPage<any> = () =>{
+interface ChangelogItem {
+  content: string;
+  date: string;
+  version?: string;
+}
+
+const ChangelogPage: NextPage = () =>{
   const dispatch = useAppDispatch();
   useEffect(() => {
     const validateRole = async () => {
@@ -28,10 +34,10 @@ const ChangelogPage: NextPage<any> = () =>{
     <PageContainer name="Changelog" >
       {!isLargeScreen && <PageHeadingBlock navDisplayName="Changelog" />}
       <MuiTimeline sx={{paddingX: 0, paddingTop: 0, marginTop: 0}}>
-      {data.map((log: any, index: number) => (
+      {(data as ChangelogItem[]).map((log, index: number) => (
         (index == data.length - 1)
-        ? <SingleLog key={index} content={log["content"]} date={log["date"]} version={log["version"]} isLast={true}/> 
-        : <SingleLog key={index} content={log["content"]} date={log["date"]} version={log["version"]} isLast={false}/> 
+        ? <SingleLog key={index} content={log.content} date={log.date} version={log.version} isLast={true}/>
+        : <SingleLog key={index} content={log.content} date={log.date} version={log.version} isLast={false}/> 
       ))}
       </MuiTimeline>
     </PageContainer>

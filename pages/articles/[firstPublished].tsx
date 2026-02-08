@@ -18,7 +18,7 @@ interface Props{
 
 const ArticlePage: NextPage<Props> = ({article}) => {
   const dispatch = useAppDispatch();
-  const role: string = useAppSelector((state: any) => state.user.role)
+  const role: string = useAppSelector(state => state.user.role)
   
   useEffect(() => {
     const validateRole = async () => {
@@ -44,14 +44,16 @@ const ArticlePage: NextPage<Props> = ({article}) => {
           <ArticleVersionBlock text={`First Published: ${getDateFromUnix(article["firstPublished"], -5)} | Last Modified: ${getDateFromUnix(article["lastModified"], -5)} | Edition: ${article["edition"]}`} />
           <hr />
           {article["body"].map((block, index) => {
-            var markers = Object.keys(block);
-            var marker = markers[0];
+            const markers = Object.keys(block);
+            const marker = markers[0];
+            const content = block[marker];
+
             if (marker == "p")
-              return <ArticleParagraphBlock key={index} text={block[marker]} />
+              return <ArticleParagraphBlock key={index} text={content as string} />
             else if (marker == "poetry")
-              return <ArticlePoetryBlock key={index} sentenceList={block[marker]} />
+              return <ArticlePoetryBlock key={index} sentenceList={content as string[]} />
             else
-              return <ArticleHeadingBlock key={index} text={block[marker]} marker={marker} />
+              return <ArticleHeadingBlock key={index} text={content as string} marker={marker} />
           })}
         </Grid>
       </Grid>
@@ -59,8 +61,9 @@ const ArticlePage: NextPage<Props> = ({article}) => {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({params}: any) => {
-  const res = await axios.get(`${ARTICLE_URL}?firstPublished=${params["firstPublished"]}`);
+export const getStaticProps: GetStaticProps<Props> = async (context) => {
+  const params = context.params as { firstPublished: string };
+  const res = await axios.get(`${ARTICLE_URL}?firstPublished=${params.firstPublished}`);
   const article: Article = res["data"] as Article;
 
   return {

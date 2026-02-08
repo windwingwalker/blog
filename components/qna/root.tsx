@@ -1,6 +1,12 @@
 import { HeadingBlock } from "../textblock";
 
-export const QABlock: React.FC<any> = ({index, question, answer}) => {
+interface QABlockProps {
+  index: number;
+  question: string;
+  answer: string;
+}
+
+export const QABlock: React.FC<QABlockProps> = ({index, question, answer}) => {
   const questionFullText = `Q${index+1}: ${question}`;
   const answerFullText = `A${index+1}: ${answer}`;
   return (

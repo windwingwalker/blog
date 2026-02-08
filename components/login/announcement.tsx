@@ -1,16 +1,23 @@
 import { HeadingBlock} from '../textblock';
 import data from "../../data/announcement.json"
 
-const LoginAnnouncement: React.FC<any> = () => {
+interface AnnouncementData {
+  heading: string;
+  body: string[];
+}
+
+const LoginAnnouncement: React.FC = () => {
+  const typedData = data as AnnouncementData;
+
   return (
     <>
-      <HeadingBlock size="h3" text={data["heading"]} />
-      {data["body"].map((item: any) => {
+      <HeadingBlock size="h3" text={typedData.heading} />
+      {typedData.body.map((item, index) => {
         return (
-          <>
+          <div key={index}>
             <br />
-            <HeadingBlock key={item} size="h6" text={item}/>
-          </>
+            <HeadingBlock size="h6" text={item}/>
+          </div>
         )
       })}
     </>

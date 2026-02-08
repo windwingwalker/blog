@@ -3,12 +3,13 @@ import { useAppSelector } from '../../shared/hooks';
 import NextLink from 'next/link';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { MILK } from '../../shared/constant';
+import { ReactElement } from 'react';
 
 interface Props {
-  name: string,
-  icon: any,
-  path: string,
-  action?: any
+  name: string;
+  icon: ReactElement;
+  path: string;
+  action?: () => void;
 }
 
 const DrawerItem: React.FC<Props> = ({name, icon, path, action}) => {

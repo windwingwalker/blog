@@ -2,9 +2,14 @@ import { Typography, Card, CardContent, CardActionArea, Box } from '@mui/materia
 import { useCallback, useState } from "react";
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom'
 
-const ZoomableImage: React.FC<any> = ({imagePath, alt}) => {
+interface ZoomableImageProps {
+  imagePath: string;
+  alt: string;
+}
+
+const ZoomableImage: React.FC<ZoomableImageProps> = ({imagePath, alt}) => {
   const [imageIsZoomed, setImageIsZoomed] = useState<boolean>(false)
-  const handleImageZoomChange = useCallback(shouldZoom => {
+  const handleImageZoomChange = useCallback((shouldZoom: boolean) => {
     setImageIsZoomed(shouldZoom)
   }, [])
 
