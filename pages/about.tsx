@@ -1,13 +1,9 @@
 import type { GetStaticProps, NextPage } from 'next'
-import { useEffect } from 'react';
 import React from 'react';
 import Profile from '../components/about/profile';
 import Masonry from '@mui/lab/Masonry';
 import { ABOUT_PATH } from '../shared/constant';
-import { useAppDispatch } from '../shared/hooks';
-import { updatePath } from '../shared/pathSlice';
-import { login, logout } from '../shared/userSlice';
-import { isGuest } from '../functions/auth';
+import { useAuthValidation } from '../functions/useAuthValidation';
 import { getJSONInJSObjectFromS3, useLargeScreen } from '../functions/common';
 import { Description, SkillSet, Cert, WorkExperience, AcademicBackground, Events } from '../components/about/root';
 import { PageHeadingBlock } from '../components/textblock';
@@ -57,14 +53,7 @@ interface AboutPageProps {
 }
 
 const AboutPage: NextPage<AboutPageProps> = ({aboutData, timelineData}) => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    const validateRole = async () => {
-      dispatch(updatePath(ABOUT_PATH));
-      dispatch(await isGuest() ? logout() : login("admin") )
-    }
-    validateRole(); 
-  });
+  useAuthValidation(ABOUT_PATH);
 
   const isLargeScreen = useLargeScreen();
 

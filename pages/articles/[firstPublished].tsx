@@ -5,11 +5,9 @@ import { ArticleCatalog, Article } from '../../models/article';
 import { ARTICLES_PATH, ARTICLE_URL, ARTICLE_CATALOG_URL } from '../../shared/constant';
 import { Grid, Box } from '@mui/material';
 import { useEffect } from 'react';
-import { updatePath } from '../../shared/pathSlice';
-import { login, logout } from '../../shared/userSlice';
-import { isGuest } from '../../functions/auth';
 import { getDateFromUnix } from '../../functions/article';
-import { useAppDispatch, useAppSelector } from '../../shared/hooks';
+import { useAppSelector } from '../../shared/hooks';
+import { useAuthValidation } from '../../functions/useAuthValidation';
 import { ArticleHeadingBlock, ArticleParagraphBlock, ArticlePoetryBlock, ArticleSubtitleBlock, ArticleTitleBlock, ArticleVersionBlock } from '../../components/articles/articleTextBlock';
 
 interface Props{
@@ -17,20 +15,19 @@ interface Props{
 }
 
 const ArticlePage: NextPage<Props> = ({article}) => {
-  const dispatch = useAppDispatch();
+  useAuthValidation(ARTICLES_PATH);
+
   const role: string = useAppSelector(state => state.user.role)
-  
+
   useEffect(() => {
-    const validateRole = async () => {
-      dispatch(updatePath(ARTICLES_PATH)); 
-      dispatch(await isGuest() ? logout() : login("admin") )
+    const trackArticleView = async () => {
       if (process.env.NODE_ENV == "production" && role != "admin"){
         const res = await axios.get(`/api/article-reader-count?firstPublished=${article["firstPublished"]}`);
       }
     }
 
-    validateRole(); 
-  }, [role]);
+    trackArticleView();
+  }, [role, article]);
   
   return (
     <Box padding={2}>

@@ -8,11 +8,9 @@ import { ArticleCardList } from '../../components/articles/articleCard';
 import { GetStaticProps } from 'next';
 import { ARTICLES_PATH, ARTICLE_CATALOG_URL } from '../../shared/constant';
 import { useState, useEffect } from 'react';
-import { updatePath } from '../../shared/pathSlice';
-import { login, logout } from '../../shared/userSlice';
 import { resetAllFilter } from '../../shared/articleSlice';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
-import { isGuest } from '../../functions/auth';
+import { useAuthValidation } from '../../functions/useAuthValidation';
 import { useRouter } from "next/router";
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import { filterArticlesByTags, getArticlesOfCurrentPage, getMaxPageNumber } from '../../functions/article';
@@ -29,6 +27,8 @@ interface Props{
 }
 
 const ArticleListPage: NextPage<Props> = ({articleCatalog, tags}) => {
+  useAuthValidation(ARTICLES_PATH);
+
   const dispatch = useAppDispatch();
   const tagSelected: string[] = useAppSelector(state => state.article.tags)
   const seriesSelected: string = useAppSelector(state => state.article.series)
@@ -39,11 +39,6 @@ const ArticleListPage: NextPage<Props> = ({articleCatalog, tags}) => {
   const [articlesOfCurrentPage, setArticlesOfCurrentPage] = useState<ArticleMetadata[]>([]);
 
   useEffect(() => {
-    const validateRole = async () => {
-      dispatch(updatePath(ARTICLES_PATH)); 
-      dispatch(await isGuest() ? logout() : login("admin") )
-    }
-
     if(!router.isReady) return;
     // const query = router.query;
     // var currentPage: number = 1
@@ -56,8 +51,6 @@ const ArticleListPage: NextPage<Props> = ({articleCatalog, tags}) => {
     setMaxPageNumber(getMaxPageNumber(targetedArticleMetadata.length, ARTICLE_AMOUNT_PER_PAGE));
     targetedArticleMetadata = getArticlesOfCurrentPage(targetedArticleMetadata, currentPage, ARTICLE_AMOUNT_PER_PAGE)
     setArticlesOfCurrentPage(targetedArticleMetadata)
-    validateRole();
-    
   }, [router.isReady, tagSelected, seriesSelected, currentPage, maxPageNumber]);
 
   return (

@@ -1,14 +1,11 @@
 import type { NextPage } from 'next'
-import { useState, useEffect } from 'react';
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import { TextField, Grid, ListItemText,  MenuItem, MenuList } from '@mui/material';
 import { CALCULATOR_PATH, PAGE_NOT_FOUND_PATH } from '../shared/constant';
-import { updatePath } from '../shared/pathSlice';
-import { useAppDispatch, useAppSelector } from '../shared/hooks';
+import { useAppSelector } from '../shared/hooks';
 import Error404Page from './404';
-import { isGuest } from '../functions/auth';
-import { login, logout } from '../shared/userSlice';
+import { useAuthValidation } from '../functions/useAuthValidation';
 
 const links = [
   {name: "Gathering Fee", label: "gethering-fee"},
@@ -29,25 +26,12 @@ const Input: React.FC = () => {
 }
 
 const CalculatorPage: NextPage = () => {
+  useAuthValidation(CALCULATOR_PATH);
+
   const [type, setType] = React.useState("gethering-fee");
-  const [validUser, setValidUser] = useState<boolean>(true);
-  
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    const validateRole = async () => {
-      dispatch(updatePath(CALCULATOR_PATH)); 
+  const role = useAppSelector(state => state.user.role);
 
-      if (await isGuest()) {
-        dispatch(logout());
-        setValidUser(false);
-      }else{
-        dispatch(login("admin"))
-      }
-    }
-    validateRole();
-  }, []);
-
-  if (!validUser) return <Error404Page />
+  if (role !== "admin") return <Error404Page />
   else{
     return (
       <>

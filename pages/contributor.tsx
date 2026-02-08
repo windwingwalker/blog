@@ -1,11 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next'
 import { Box, Grid } from '@mui/material';
-import { useState, useEffect } from 'react';
 import { CONTRIBUTOR_PATH } from '../shared/constant';
-import { updatePath } from '../shared/pathSlice';
-import { useAppDispatch } from '../shared/hooks';
-import { login, logout } from '../shared/userSlice';
-import { isGuest } from '../functions/auth';
+import { useAuthValidation } from '../functions/useAuthValidation';
 import { PageContainer } from '../components/root';
 import { HeadingBlock, ListBlock, PageHeadingBlock } from '../components/textblock';
 import { getJSONInJSObjectFromS3, useLargeScreen } from '../functions/common';
@@ -17,14 +13,7 @@ interface ContributorPageProps {
 }
 
 const ContributorPage: NextPage<ContributorPageProps> = ({data}) =>{
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    const validateRole = async () => {
-      dispatch(updatePath(CONTRIBUTOR_PATH)); 
-      dispatch(await isGuest() ? logout() : login("admin") )
-    }
-    validateRole();
-  });
+  useAuthValidation(CONTRIBUTOR_PATH);
 
   const videoRatio = 500 / 294
   const videoWidth = 600

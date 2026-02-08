@@ -1,9 +1,5 @@
 import type { NextPage } from 'next'
-import { useEffect } from 'react';
-import { useAppDispatch } from '../shared/hooks';
-import { updatePath } from '../shared/pathSlice';
-import { login, logout } from '../shared/userSlice';
-import { isGuest } from '../functions/auth';
+import { useAuthValidation } from '../functions/useAuthValidation';
 import { HOME_PATH } from '../shared/constant';
 import 'react-medium-image-zoom/dist/styles.css'
 import { Masonry } from '@mui/lab'
@@ -21,14 +17,7 @@ const data = [
 ]
 
 const HomePage: NextPage = () => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    const validateRole = async () => {
-      dispatch(updatePath(HOME_PATH));
-      dispatch(await isGuest() ? logout() : login("admin") )
-    }
-    validateRole(); 
-  });
+  useAuthValidation(HOME_PATH);
 
   return (
     <PageContainer name="Home">

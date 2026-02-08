@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import type { AppDispatch } from './store'
 import { removeCookies } from '../functions/auth';
 
 // Define a type for the slice state
@@ -17,14 +18,22 @@ export const userSlice = createSlice({
     login: (state: State, action: PayloadAction<string>) => {
       state.role = action.payload;
     },
-    logout: (state: State) => {
-      removeCookies();
-      state.role = "guest";      
+    // Pure reducer - no side effects
+    setGuestRole: (state: State) => {
+      state.role = "guest";
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { login, logout } = userSlice.actions
+export const { login, setGuestRole } = userSlice.actions
+
+// Thunk action to handle logout with side effects
+export const logout = () => (dispatch: AppDispatch) => {
+  // Side effect: Remove cookies
+  removeCookies();
+  // Pure action: Update state
+  dispatch(setGuestRole());
+}
 
 export default userSlice.reducer

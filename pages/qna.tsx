@@ -1,10 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { QNA_PATH } from '../shared/constant';
-import { updatePath } from '../shared/pathSlice';
-import { useAppDispatch } from '../shared/hooks';
-import { login, logout } from '../shared/userSlice';
-import { isGuest } from '../functions/auth';
+import { useAuthValidation } from '../functions/useAuthValidation';
 import { PageHeadingBlock } from '../components/textblock';
 import { getJSONInJSObjectFromS3, useLargeScreen} from '../functions/common';
 import { PageContainer } from '../components/root';
@@ -20,14 +17,7 @@ interface Props {
 }
 
 const QnAPage: NextPage<Props> = ({data}) =>{
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    const validateRole = async () => {
-      dispatch(updatePath(QNA_PATH)); 
-      dispatch(await isGuest() ? logout() : login("admin") )
-    }
-    validateRole(); 
-  });
+  useAuthValidation(QNA_PATH);
 
   const isLargeScreen = useLargeScreen();
 

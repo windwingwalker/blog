@@ -1,10 +1,6 @@
 import type { NextPage } from 'next'
-import { useEffect } from 'react';
 import { CHANGE_LOG_PATH } from '../shared/constant';
-import { updatePath } from '../shared/pathSlice';
-import { useAppDispatch } from '../shared/hooks';
-import { login, logout } from '../shared/userSlice';
-import { isGuest } from '../functions/auth';
+import { useAuthValidation } from '../functions/useAuthValidation';
 import { default as MuiTimeline} from '@mui/lab/Timeline';
 import { PageHeadingBlock } from '../components/textblock';
 import { useLargeScreen } from '../functions/common';
@@ -19,14 +15,7 @@ interface ChangelogItem {
 }
 
 const ChangelogPage: NextPage = () =>{
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    const validateRole = async () => {
-      dispatch(updatePath(CHANGE_LOG_PATH)); 
-      dispatch(await isGuest() ? logout() : login("admin") )
-    }
-    validateRole(); 
-  });
+  useAuthValidation(CHANGE_LOG_PATH);
 
   const isLargeScreen = useLargeScreen();
 

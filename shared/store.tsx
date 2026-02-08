@@ -1,4 +1,3 @@
-import { createStore } from "redux";
 import pathReducer from "./pathSlice";
 import userReducer from "./userSlice";
 import articleReducer from "./articleSlice";

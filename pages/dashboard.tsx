@@ -2,14 +2,13 @@ import type { NextPage } from 'next'
 import { Box, Typography, CircularProgress } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { DASHBOARD_PATH } from '../shared/constant';
-import { updatePath } from '../shared/pathSlice';
-import { useAppDispatch, useAppSelector } from '../shared/hooks';
+import { useAppSelector } from '../shared/hooks';
 import axios, { AxiosResponse } from 'axios';
 import MyResponsivePie from '../components/chart/pie';
 import { Asset } from '../models/asset';
 import Error404Page from '../pages/404';
-import { getIdToken, isGuest } from '../functions/auth';
-import { login, logout } from '../shared/userSlice';
+import { getIdToken } from '../functions/auth';
+import { useAuthValidation } from '../functions/useAuthValidation';
 import Masonry from '@mui/lab/Masonry';
 import { HeadingBlock } from '../components/textblock';
 
@@ -52,36 +51,29 @@ const processData = (data: Asset[], tmp: string): pieData[] => {
 }
 
 const DashboardPage: NextPage<{}> = () =>{
+  useAuthValidation(DASHBOARD_PATH);
+
   const [asset, setAsset] = useState<Asset[]>([] as Asset[]);
   const [ready, setReady] = useState<boolean>(false);
-  const [validUser, setValidUser] = useState<boolean>(true);
-  const dispatch = useAppDispatch();
+  const role = useAppSelector(state => state.user.role);
 
   useEffect(() => {
-    const getData = async (idToken: string) => {
-      const response: AxiosResponse = await axios.get(`/api/asset-overview?idToken=${idToken}`);
-      if (response["status"] == 200){
-        setAsset(response["data"] as Asset[]);
-        setReady(true);
+    const getData = async () => {
+      if (role === "admin") {
+        const idToken = getIdToken();
+        const response: AxiosResponse = await axios.get(`/api/asset-overview?idToken=${idToken}`);
+        if (response["status"] == 200){
+          setAsset(response["data"] as Asset[]);
+          setReady(true);
+        }
       }
     }
 
-    const validateRole = async () => {
-      dispatch(updatePath(DASHBOARD_PATH)); 
+    getData();
+  }, [role]);
 
-      if (await isGuest()) {
-        dispatch(logout());
-        setValidUser(false);
-      }else{
-        dispatch(login("admin"))
-        await getData(getIdToken());
-      }
-    }
-    validateRole();
-  }, []);
-
-  if (!validUser) return <Error404Page />
-  else if (validUser && !ready) return <CircularProgress color='success' />
+  if (role !== "admin") return <Error404Page />
+  else if (role === "admin" && !ready) return <CircularProgress color='success' />
   else{ 
     return (
       <>
