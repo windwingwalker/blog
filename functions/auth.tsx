@@ -37,10 +37,10 @@ export const isGuest = async () => {
   const idToken = cookies.get('idToken');
   if (idToken == null) return true
 
-  const accessToken = cookies.get('refreshToken');
+  const accessToken = cookies.get('accessToken');
   if (accessToken == null) return true
 
-  const refreshToken = cookies.get('accessToken');
+  const refreshToken = cookies.get('refreshToken');
   if (refreshToken == null) return true
 
   const tokenIsValid = await accessTokenIsValid(cookies.get('accessToken'))

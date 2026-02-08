@@ -34,7 +34,7 @@ const nextConfig = {
           },
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN; DNEY; ALLOW-FROM windwingwalker.xyz'
+            value: 'SAMEORIGIN'
           },
         ],
       },

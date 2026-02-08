@@ -1,5 +1,10 @@
 [ 
   {
+    "content": "Fixed critical security issues",
+    "date": "7 Feb 2026",
+    "version": "2.5.1"
+  },
+  {
     "content": "Added maintenance page",
     "date": "10 Jan 2026",
     "version": "2.5.0"

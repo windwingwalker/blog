@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    "styled-components.vscode-styled-components",
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
+    "naumovs.color-highlight",
+    "usernamehw.errorlens"
+  ]
+}
