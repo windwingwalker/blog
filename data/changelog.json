@@ -1,5 +1,10 @@
 [ 
   {
+    "content": "Enabled TypeScript strict mode",
+    "date": "7 Feb 2026",
+    "version": "2.5.2"
+  },
+  {
     "content": "Fixed critical security issues",
     "date": "7 Feb 2026",
     "version": "2.5.1"
